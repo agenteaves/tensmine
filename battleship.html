@@ -153,21 +153,22 @@
   </div>
 
   <script>
-    document.querySelectorAll('.radio-widget').forEach(widget => {
+    const radios = document.querySelectorAll('.radio-widget');
+
+    radios.forEach(widget => {
       const title = widget.querySelector('.radio-title');
+      const iframe = widget.querySelector('.radio-iframe');
       let isDragging = false;
       let offsetX = 0;
       let offsetY = 0;
 
+      // Drag behavior
       title.addEventListener('mousedown', e => {
         isDragging = true;
         const rect = widget.getBoundingClientRect();
-        // Calculate left relative to viewport
-        let left = rect.left;
-        widget.style.left = left + 'px';
+        widget.style.left = rect.left + 'px';
         widget.style.right = 'auto';
-
-        offsetX = e.clientX - left;
+        offsetX = e.clientX - rect.left;
         offsetY = e.clientY - rect.top;
         widget.style.zIndex = 10000;
         e.preventDefault();
@@ -179,10 +180,8 @@
         let y = e.clientY - offsetY;
         const maxX = window.innerWidth - widget.offsetWidth;
         const maxY = window.innerHeight - widget.offsetHeight;
-
         x = Math.max(0, Math.min(x, maxX));
         y = Math.max(0, Math.min(y, maxY));
-
         widget.style.left = x + 'px';
         widget.style.top = y + 'px';
       });
@@ -194,19 +193,35 @@
         }
       });
 
-      // Toggle expand on title click (only if not dragging)
+      // Prevent accidental expand while dragging
       let dragPreventClick = false;
-      title.addEventListener('click', e => {
+      title.addEventListener('mousemove', () => {
+        if (isDragging) dragPreventClick = true;
+      });
+
+      // Toggle expand and stop others
+      title.addEventListener('click', () => {
         if (dragPreventClick) {
           dragPreventClick = false;
           return;
         }
-        widget.classList.toggle('expanded');
-      });
 
-      // Prevent click when dragging
-      title.addEventListener('mousemove', () => {
-        if (isDragging) dragPreventClick = true;
+        const isExpanded = widget.classList.contains('expanded');
+
+        // Collapse all radios and stop their iframes
+        radios.forEach(other => {
+          other.classList.remove('expanded');
+          const otherIframe = other.querySelector('.radio-iframe');
+          // Reset src to stop audio playback
+          const currentSrc = otherIframe.src;
+          otherIframe.src = '';
+          otherIframe.src = currentSrc;
+        });
+
+        // If it was not expanded, expand it now
+        if (!isExpanded) {
+          widget.classList.add('expanded');
+        }
       });
     });
   </script>
