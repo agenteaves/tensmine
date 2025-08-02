@@ -16,6 +16,7 @@
       background: url('https://www.wallpapergap.com/cdn/24/77/dark-green-jungle-wallpaper-3840x2160.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
+      /* Consider changing overflow to auto if needed for smaller screens */
       overflow: hidden;
     }
 
@@ -31,7 +32,7 @@
       padding: 0.5rem 1rem;
     }
 
-    .content {
+    main.content {
       flex: 1;
       display: flex;
       justify-content: center;
@@ -81,6 +82,7 @@
       cursor: move;
       padding: 0;
       user-select: none;
+      height: auto;
     }
 
     .radio-title {
@@ -89,6 +91,7 @@
       font-size: 0.9rem;
       text-align: center;
       white-space: nowrap;
+      user-select: none;
     }
 
     .radio-iframe {
@@ -96,48 +99,76 @@
       width: 100%;
       height: 180px;
       border: none;
+      position: absolute;
+      bottom: 100%; /* Expand upward */
+      left: 0;
+      z-index: -1;
+      border-radius: 0 0 5px 5px;
+      background: #000;
     }
 
     .radio-widget.expanded .radio-iframe {
       display: block;
+      z-index: 1000;
+    }
+
+    /* Responsive radios on smaller screens */
+    @media (max-width: 768px) {
+      .radio-widget {
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%);
+        max-width: 90vw;
+      }
     }
   </style>
 </head>
 <body>
-  <a href="index.html" class="back-btn">← Back to Home</a>
-  <a href="https://miriele.com" target="_blank" class="shop-btn">Shop</a>
+  <a href="index.html" class="back-btn" aria-label="Back to homepage">← Back to Home</a>
+  <a href="https://miriele.com" target="_blank" class="shop-btn" aria-label="Visit Miriele Shop">Shop</a>
 
   <header>
     <h1>Battleship War Multiplayer</h1>
   </header>
 
-  <div class="content">
+  <main class="content">
     <iframe 
       class="game-frame"
       src="https://play.gamepix.com/battleship-war-multiplayer/embed?sid=1"
       allowfullscreen
-      scrolling="no">
+      scrolling="no"
+      loading="lazy">
     </iframe>
-  </div>
+  </main>
 
   <footer>
     <p>© 2025 Jungle Adventuraddict. All rights reserved.</p>
   </footer>
 
   <!-- Radios -->
-  <div class="radio-widget" id="radio1" style="top: 50px;">
+  <div class="radio-widget" id="radio1" style="top: 600px;">
     <div class="radio-title">104.5 Kiss FM</div>
-    <iframe class="radio-iframe" allow="autoplay" src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true"></iframe>
+    <iframe class="radio-iframe" allow="autoplay" loading="lazy" src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true"></iframe>
   </div>
 
-  <div class="radio-widget" id="radio2" style="top: 260px;">
+  <div class="radio-widget" id="radio2" style="top: 800px;">
     <div class="radio-title">Kicker 95.1</div>
-    <iframe class="radio-iframe" allow="autoplay" src="https://www.iheart.com/live/kicker-951-2205/?embed=true"></iframe>
+    <iframe class="radio-iframe" allow="autoplay" loading="lazy" src="https://www.iheart.com/live/kicker-951-2205/?embed=true"></iframe>
   </div>
 
-  <div class="radio-widget" id="radio3" style="top: 470px;">
+  <div class="radio-widget" id="radio3" style="top: 1000px;">
     <div class="radio-title">Big Dog 106</div>
-    <iframe class="radio-iframe" allow="autoplay" src="https://www.iheart.com/live/big-dog-106-2193/?embed=true"></iframe>
+    <iframe class="radio-iframe" allow="autoplay" loading="lazy" src="https://www.iheart.com/live/big-dog-106-2193/?embed=true"></iframe>
+  </div>
+
+  <div class="radio-widget" id="radio4" style="top: 1200px;">
+    <div class="radio-title">Power 101.5</div>
+    <iframe class="radio-iframe" allow="autoplay" loading="lazy" src="https://www.iheart.com/live/power-1015-2207/?embed=true"></iframe>
+  </div>
+
+  <div class="radio-widget" id="radio5" style="top: 1400px;">
+    <div class="radio-title">Hit Nation</div>
+    <iframe class="radio-iframe" allow="autoplay" loading="lazy" src="https://www.iheart.com/live/hit-nation-4422/?embed=true"></iframe>
   </div>
 
   <script>
