@@ -1,4 +1,4 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -9,64 +9,79 @@
   <meta name="author" content="Jungle Adventuraddict">
   <link rel="stylesheet" href="style.css" />
   <style>
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
+      height: 100%;
       font-family: Arial, sans-serif;
       background: url('https://www.wallpapergap.com/cdn/24/77/dark-green-jungle-wallpaper-3840x2160.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
     }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
     header, footer {
       background-color: rgba(0, 0, 0, 0.7);
       text-align: center;
-      padding: 1.5rem 1rem;
+      padding: 1rem;
     }
+
     .content {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 1.5rem;
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 12px;
-      text-align: center;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
     }
+
     iframe.game-frame {
-      width: 100%;
-      max-width: 800px;
-      height: 600px;
+      width: 90vw;
+      height: 80vh;
+      max-width: 1024px;
+      max-height: 768px;
       border: none;
       border-radius: 10px;
       background-color: #000;
     }
-    a.button {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
+
+    .back-btn {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      padding: 8px 16px;
       background-color: #007BFF;
       color: white;
       text-decoration: none;
       border-radius: 6px;
+      font-size: 0.9rem;
       transition: background-color 0.3s ease;
+      z-index: 10;
     }
-    a.button:hover {
+
+    .back-btn:hover {
       background-color: #0056b3;
     }
   </style>
 </head>
 <body>
+  <a href="index.html" class="back-btn">← Back to Home</a>
+
   <header>
     <h1>Battleship War Multiplayer</h1>
-    <p>Sink ships. Outsmart your opponent. Rule the waves.</p>
+    <p>Enjoy a fullscreen experience — no scrolling required.</p>
   </header>
 
   <div class="content">
     <iframe 
       class="game-frame"
-      src="https://play.gamepix.com/battleship-war-multiplayer/embed?sid=1" 
+      src="https://play.gamepix.com/battleship-war-multiplayer/embed?sid=1"
       allowfullscreen
       scrolling="no">
     </iframe>
-    <br>
-    <a href="index.html" class="button">← Back to Home</a>
   </div>
 
   <footer>
