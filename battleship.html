@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -27,15 +27,15 @@
     header, footer {
       background-color: rgba(0, 0, 0, 0.7);
       text-align: center;
-      padding: 1rem;
+      padding: 0.5rem 1rem;
     }
 
     .content {
       flex: 1;
       display: flex;
       justify-content: center;
-      align-items: center;
-      padding: 1rem;
+      align-items: flex-start; /* Move content toward the top */
+      padding-top: 0.5rem;
     }
 
     iframe.game-frame {
@@ -46,6 +46,7 @@
       border: none;
       border-radius: 10px;
       background-color: #000;
+      margin-top: -1rem; /* Nudge game up slightly */
     }
 
     .back-btn {
@@ -72,7 +73,6 @@
 
   <header>
     <h1>Battleship War Multiplayer</h1>
-    <p>Enjoy a fullscreen experience — no scrolling required.</p>
   </header>
 
   <div class="content">
