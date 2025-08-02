@@ -86,20 +86,28 @@
       bottom: 100%; /* put above header */
       left: 0;
       width: 100%;
-      height: 200px;
+      height: 410px; /* 2 x 200px + some gap */
       background: #000;
       border-radius: 12px 12px 0 0;
       overflow: hidden;
       display: none;
       z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 5px 0;
+      box-sizing: border-box;
     }
     #radio-container.expanded #radio-iframe-wrapper {
-      display: block;
+      display: flex;
     }
-    #radio-iframe {
+    #radio-iframe-wrapper iframe {
       width: 100%;
-      height: 100%;
+      height: 200px;
       border: none;
+      border-radius: 8px;
+      user-select: none;
+      pointer-events: auto;
     }
   </style>
 </head>
@@ -124,7 +132,14 @@
   <!-- Floating Radio Widget -->
   <div id="radio-container" draggable="false">
     <div id="radio-iframe-wrapper">
-      <iframe id="radio-iframe"
+      <iframe
+        src="https://www.iheart.com/live/kicker-951-2205/?embed=true"
+        allow="autoplay"
+        scrolling="no"
+        title="Kicker 95.1 FM Player"
+        draggable="false">
+      </iframe>
+      <iframe
         src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true"
         allow="autoplay"
         scrolling="no"
@@ -132,7 +147,7 @@
         draggable="false">
       </iframe>
     </div>
-    <div id="radio-header" draggable="false">104.5 KISS FM ▶</div>
+    <div id="radio-header" draggable="false">Radio Stations ▶</div>
   </div>
 
   <script>
