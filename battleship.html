@@ -64,13 +64,13 @@
     .shop-btn { right: 1rem; }
     .back-btn:hover, .shop-btn:hover { background-color: #0056b3; }
 
-    /* Movable iframe container for iHeart Radio */
+    /* Movable iHeart Radio container */
     #radio-container {
       position: fixed;
       top: 150px;
       right: 20px;
       width: 320px;
-      height: 220px; /* 200 iframe height + some padding */
+      height: 230px; /* iframe 200 + header ~30 */
       background: #000;
       border-radius: 14px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.7);
@@ -90,7 +90,7 @@
       margin-bottom: 6px;
       user-select: text;
       text-align: center;
-      cursor: default;
+      cursor: move;
     }
     #radio-iframe {
       flex-grow: 1;
@@ -144,13 +144,13 @@
     let dragOffsetY = 0;
 
     radioContainer.addEventListener('mousedown', (e) => {
-      // Allow drag only if clicked outside iframe (header or container background)
+      // Drag only if click on container or header (not iframe)
       if(e.target === radioContainer || e.target === document.getElementById('radio-header')) {
         isDragging = true;
         const rect = radioContainer.getBoundingClientRect();
         dragOffsetX = e.clientX - rect.left;
         dragOffsetY = e.clientY - rect.top;
-        radioContainer.style.transition = 'none'; // disable transitions while dragging
+        radioContainer.style.transition = 'none';
         document.body.style.userSelect = 'none';
       }
     });
