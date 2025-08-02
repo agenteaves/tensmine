@@ -154,7 +154,7 @@
       <div class="dropdown-content">
         <a href="game.html">Words</a>
         <a href="titans.html">Titans</a>
-        <a href="battleship.html">Battleship</a>
+        <a href="battleship.html">Battleship</a> <!-- ✅ This now points to your new game page -->
       </div>
     </div>
     <a href="https://miriele.com" target="_blank">Shop</a>
@@ -207,7 +207,7 @@
       document.getElementById(id).style.display = 'none';
     }
     window.onclick = function(event) {
-      if (event.target.className === 'modal') {
+      if (event.target.classList.contains('modal')) {
         event.target.style.display = "none";
       }
     };
