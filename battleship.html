@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -10,29 +10,24 @@
   <link rel="stylesheet" href="style.css" />
   <style>
     html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
+      margin: 0; padding: 0; height: 100%;
       font-family: Arial, sans-serif;
       background: url('https://www.wallpapergap.com/cdn/24/77/dark-green-jungle-wallpaper-3840x2160.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
     }
-
     body {
       display: flex;
       flex-direction: column;
       position: relative;
       overflow-x: hidden;
     }
-
     header, footer {
       background-color: rgba(0, 0, 0, 0.7);
       text-align: center;
       padding: 0.5rem 1rem;
       z-index: 1;
     }
-
     .content {
       flex: 1;
       display: flex;
@@ -42,7 +37,6 @@
       position: relative;
       z-index: 0;
     }
-
     iframe.game-frame {
       width: 90vw;
       height: 80vh;
@@ -53,7 +47,6 @@
       background-color: #000;
       margin-top: -1rem;
     }
-
     .back-btn, .shop-btn {
       position: absolute;
       top: 1rem;
@@ -67,106 +60,86 @@
       z-index: 10;
       user-select: none;
     }
+    .back-btn { left: 1rem; }
+    .shop-btn { right: 1rem; }
+    .back-btn:hover, .shop-btn:hover { background-color: #0056b3; }
 
-    .back-btn {
-      left: 1rem;
-    }
-
-    .shop-btn {
-      right: 1rem;
-    }
-
-    .back-btn:hover, .shop-btn:hover {
-      background-color: #0056b3;
-    }
-
-    /* Floating Movable Radio Widget */
-
+    /* Remodeled Floating Radio Widget */
     #radio-widget {
       position: fixed;
-      right: 10px;
+      right: 12px;
       bottom: 120px;
-      width: 180px;
-      height: 50px;
-      background-color: #e31c5f; /* iHeartRadio pink */
-      border-radius: 25px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      width: 200px;
+      height: 55px;
+      background: linear-gradient(135deg, #e60026, #b3001b);
+      border-radius: 30px;
+      box-shadow: 0 5px 15px rgba(230, 0, 38, 0.6);
       cursor: pointer;
       z-index: 9999;
       user-select: none;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      transition: height 0.35s ease, width 0.35s ease, border-radius 0.35s ease, background-color 0.35s ease;
+      transition: height 0.35s ease, width 0.35s ease, border-radius 0.35s ease;
+      font-weight: 700;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
     #radio-widget.expanded {
-      width: 180px;
-      height: 320px;
-      border-radius: 16px;
-      background-color: #a1123d; /* darker iHeartRadio pink */
-      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
-      padding: 10px;
+      height: 310px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #b3001b, #800014);
+      padding: 12px 16px;
+      box-shadow: 0 8px 25px rgba(179, 0, 27, 0.8);
     }
-
     #radio-toggle {
       display: flex;
       align-items: center;
-      gap: 12px;
-      width: 100%;
-      height: 50px;
-      padding: 0 15px;
-      user-select: none;
-      color: white;
-      font-weight: 700;
-      font-size: 1rem;
-      justify-content: flex-start;
+      gap: 14px;
+      padding: 0 20px;
+      height: 55px;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
     }
-
     #radio-toggle svg {
-      width: 24px;
-      height: 24px;
+      width: 28px;
+      height: 28px;
       fill: white;
       flex-shrink: 0;
     }
-
     #radio-channel-name {
+      flex-grow: 1;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      flex-grow: 1;
+      user-select: text;
     }
-
     #radio-content {
-      margin-top: 15px;
-      width: 100%;
+      margin-top: 18px;
       display: none;
       flex-direction: column;
       align-items: center;
-      color: white;
+      width: 100%;
     }
-
     #radio-widget.expanded #radio-content {
       display: flex;
     }
-
     #radio-content p {
-      margin: 0 0 10px 0;
+      margin: 0 0 14px 0;
+      font-size: 1rem;
       font-weight: 600;
       text-align: center;
-      font-size: 1rem;
     }
-
     #radio-content audio {
       width: 100%;
-      border-radius: 8px;
+      border-radius: 14px;
       outline: none;
-      background-color: #40001a;
+      background-color: #5a000f;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
     }
-
     #radio-toggle:hover {
-      background-color: rgba(255, 255, 255, 0.15);
-      border-radius: 25px;
+      background-color: rgba(255 255 255 / 0.15);
+      border-radius: 30px;
       transition: background-color 0.3s ease;
     }
   </style>
@@ -192,24 +165,20 @@
     <p>© 2025 Jungle Adventuraddict. All rights reserved.</p>
   </footer>
 
-  <!-- iHeartRadio Floating Radio Widget -->
-  <div id="radio-widget" title="Toggle iHeartRadio Player" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle radio player">
+  <!-- Remodeled Floating Radio Widget for 104.5 KISS FM -->
+  <div id="radio-widget" title="Toggle 104.5 KISS FM Radio Player" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle radio player">
     <div id="radio-toggle" aria-hidden="true">
-      <!-- Heart Icon SVG for iHeartRadio style -->
+      <!-- Radio Speaker Icon -->
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42
-          4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09
-          C13.09 3.81 14.76 3 16.5 3
-          19.58 3 22 5.42 22 8.5
-          c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-3.57-4.4v8.8a4.5 4.5 0 0 0 3.57-4.4zm2.5 0a7 7 0 0 0-5.4-6.76v2.06a5 5 0 0 1 0 8.4v2.06a7 7 0 0 0 5.4-6.76z"/>
       </svg>
-      <span id="radio-channel-name">iHeartRadio Channel</span>
+      <span id="radio-channel-name">104.5 KISS FM</span>
     </div>
     <div id="radio-content" aria-hidden="true">
-      <p>Enjoy your favorite tunes!</p>
-      <audio controls preload="none" aria-label="Radio player">
-        <!-- Example iHeartRadio stream URL, replace with your channel's actual stream -->
-        <source src="https://playerservices.streamtheworld.com/api/livestream-redirect/IHEARTRADIO_WYRK.mp3" type="audio/mpeg" />
+      <p>Now Playing: 104.5 KISS FM</p>
+      <audio controls preload="none" aria-label="104.5 KISS FM Radio Player">
+        <!-- Replace with your actual stream URL -->
+        <source src="https://playerservices.streamtheworld.com/api/livestream-redirect/KISSFM_SC" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
     </div>
