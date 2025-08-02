@@ -7,6 +7,7 @@
   <meta name="description" content="Play Battleship War Multiplayer online for free on Jungle Adventuraddict. Sink ships and challenge friends!">
   <meta name="keywords" content="Battleship, multiplayer game, Jungle Adventuraddict, online games, free browser game, GamePix">
   <meta name="author" content="Jungle Adventuraddict">
+  <link rel="stylesheet" href="style.css" />
   <style>
     html, body {
       margin: 0;
@@ -16,6 +17,7 @@
       background: url('https://www.wallpapergap.com/cdn/24/77/dark-green-jungle-wallpaper-3840x2160.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
+      overflow: hidden;
     }
 
     body {
@@ -28,6 +30,7 @@
       background-color: rgba(0, 0, 0, 0.7);
       text-align: center;
       padding: 0.5rem 1rem;
+      z-index: 1;
     }
 
     .content {
@@ -36,6 +39,7 @@
       justify-content: center;
       align-items: flex-start;
       padding-top: 0.5rem;
+      z-index: 1;
     }
 
     iframe.game-frame {
@@ -47,6 +51,7 @@
       border-radius: 10px;
       background-color: #000;
       margin-top: -1rem;
+      z-index: 1;
     }
 
     .back-btn, .shop-btn {
@@ -59,7 +64,7 @@
       border-radius: 6px;
       font-size: 0.9rem;
       transition: background-color 0.3s ease;
-      z-index: 10;
+      z-index: 2;
     }
 
     .back-btn {
@@ -74,40 +79,36 @@
       background-color: #0056b3;
     }
 
-    .radio-widget {
+    .radio-container {
       position: fixed;
-      right: 20px;
-      width: 200px;
-      background: black;
+      right: 10px;
+      width: 240px;
+      z-index: 99;
+      background-color: black;
       color: white;
-      border-radius: 6px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
       cursor: move;
-      z-index: 9999;
+      user-select: none;
     }
 
     .radio-header {
-      padding: 6px 7px;
-      font-size: 0.85rem;
+      padding: 10px;
+      background-color: #111;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
       font-weight: bold;
-      background: #222;
-      border-bottom: 1px solid #444;
+      text-align: center;
     }
 
-    .radio-iframe-wrapper {
+    .radio-iframe {
       display: none;
-      position: absolute;
-      bottom: 100%;
       width: 100%;
-    }
-
-    .radio-iframe-wrapper iframe {
-      width: 100%;
-      height: 200px;
+      height: 160px;
       border: none;
+      transition: opacity 0.3s ease;
     }
 
-    .radio-widget.expanded .radio-iframe-wrapper {
+    .radio-expanded .radio-iframe {
       display: block;
     }
   </style>
@@ -133,61 +134,56 @@
     <p>© 2025 Jungle Adventuraddict. All rights reserved.</p>
   </footer>
 
-  <div class="radio-widget" style="top: 100px;" id="radio1">
-    <div class="radio-header" onclick="toggleRadio('radio1')">104.5 KISS FM</div>
-    <div class="radio-iframe-wrapper">
-      <iframe allow="autoplay" src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true"></iframe>
-    </div>
+  <div id="radio1" class="radio-container" style="top: 100px;">
+    <div class="radio-header" onclick="toggleRadio('radio1')">104.5 Kiss FM</div>
+    <iframe class="radio-iframe" src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true" allow="autoplay"></iframe>
   </div>
 
-  <div class="radio-widget" style="top: 310px;" id="radio2">
-    <div class="radio-header" onclick="toggleRadio('radio2')">Kicker 95.1</div>
-    <div class="radio-iframe-wrapper">
-      <iframe allow="autoplay" src="https://www.iheart.com/live/kicker-951-2205/?embed=true"></iframe>
-    </div>
+  <div id="radio2" class="radio-container" style="top: 270px;">
+    <div class="radio-header" onclick="toggleRadio('radio2')">95.1 Kicker FM</div>
+    <iframe class="radio-iframe" src="https://www.iheart.com/live/kicker-951-2205/?embed=true" allow="autoplay"></iframe>
   </div>
 
   <script>
     function toggleRadio(id) {
-      const widget = document.getElementById(id);
-      widget.classList.toggle('expanded');
+      const container = document.getElementById(id);
+      container.classList.toggle('radio-expanded');
     }
 
     function makeDraggable(el) {
-      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      let isMouseDown = false;
+      let offsetX, offsetY;
+
       const header = el.querySelector('.radio-header');
-      header.onmousedown = dragMouseDown;
 
-      function dragMouseDown(e) {
-        e = e || window.event;
-        e.preventDefault();
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        document.onmousemove = elementDrag;
+      header.addEventListener('mousedown', function(e) {
+        isMouseDown = true;
+        offsetX = e.clientX - el.offsetLeft;
+        offsetY = e.clientY - el.offsetTop;
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+      });
+
+      function onMouseMove(e) {
+        if (!isMouseDown) return;
+
+        let x = e.clientX - offsetX;
+        let y = e.clientY - offsetY;
+
+        const maxX = window.innerWidth - el.offsetWidth;
+        const maxY = window.innerHeight - el.offsetHeight;
+
+        x = Math.max(0, Math.min(x, maxX));
+        y = Math.max(0, Math.min(y, maxY));
+
+        el.style.left = x + 'px';
+        el.style.top = y + 'px';
       }
 
-      function elementDrag(e) {
-        e = e || window.event;
-        e.preventDefault();
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-
-        const rect = el.getBoundingClientRect();
-        const newTop = rect.top - pos2;
-        const newLeft = rect.left - pos1;
-        const maxTop = window.innerHeight - el.offsetHeight;
-        const maxLeft = window.innerWidth - el.offsetWidth;
-
-        el.style.top = Math.max(0, Math.min(maxTop, newTop)) + "px";
-        el.style.left = Math.max(0, Math.min(maxLeft, newLeft)) + "px";
-      }
-
-      function closeDragElement() {
-        document.onmouseup = null;
-        document.onmousemove = null;
+      function onMouseUp() {
+        isMouseDown = false;
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
       }
     }
 
@@ -196,3 +192,4 @@
   </script>
 </body>
 </html>
+
