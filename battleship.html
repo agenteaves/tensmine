@@ -1,4 +1,4 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -22,6 +22,7 @@
     body {
       display: flex;
       flex-direction: column;
+      position: relative; /* for absolute buttons */
     }
 
     header, footer {
@@ -49,10 +50,9 @@
       margin-top: -1rem; /* Nudge game up slightly */
     }
 
-    .back-btn {
+    .back-btn, .shop-btn {
       position: absolute;
       top: 1rem;
-      left: 1rem;
       padding: 8px 16px;
       background-color: #007BFF;
       color: white;
@@ -63,13 +63,21 @@
       z-index: 10;
     }
 
-    .back-btn:hover {
+    .back-btn {
+      left: 1rem;
+    }
+    .shop-btn {
+      left: 90px; /* spaced right of back button */
+    }
+
+    .back-btn:hover, .shop-btn:hover {
       background-color: #0056b3;
     }
   </style>
 </head>
 <body>
   <a href="index.html" class="back-btn">← Back to Home</a>
+  <a href="https://miriele.com" target="_blank" class="shop-btn">Shop</a>
 
   <header>
     <h1>Battleship War Multiplayer</h1>
