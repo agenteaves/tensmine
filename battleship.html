@@ -7,7 +7,6 @@
   <meta name="description" content="Play Battleship War Multiplayer online for free on Jungle Adventuraddict. Sink ships and challenge friends!">
   <meta name="keywords" content="Battleship, multiplayer game, Jungle Adventuraddict, online games, free browser game, GamePix">
   <meta name="author" content="Jungle Adventuraddict">
-  <link rel="stylesheet" href="style.css" />
   <style>
     html, body {
       margin: 0; padding: 0; height: 100%;
@@ -67,70 +66,48 @@
     /* Movable radio container */
     #radio-container {
       position: fixed;
-      top: 150px;
+      bottom: 20px;
       right: 20px;
       width: 320px;
-      height: 230px;
-      background: #000;
-      border-radius: 14px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.7);
-      cursor: move;
       z-index: 9999;
-      overflow: hidden;
-      user-select: none;
-      display: flex;
-      flex-direction: column;
-      padding: 10px;
-      transition: height 0.3s ease;
-      /* Initially expanded; will override in JS */
-    }
-    #radio-header {
-      color: white;
-      font-weight: 700;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-      user-select: text;
-      text-align: center;
       cursor: move;
+      user-select: none;
+    }
+
+    #radio-header {
+      background: #000;
+      color: white;
+      padding: 10px;
+      border-radius: 12px;
+      font-weight: bold;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 8px;
-    }
-    #radio-toggle-btn {
-      color: white;
-      font-weight: 900;
-      font-size: 1.3rem;
+      font-size: 1rem;
       cursor: pointer;
-      user-select: none;
-      padding-left: 10px;
-    }
-    #radio-iframe {
-      flex-grow: 1;
-      border: none;
-      border-radius: 10px;
     }
 
-    /* Minimized style */
-    #radio-container.minimized {
-      width: 160px;
-      height: 40px;
-      padding: 5px 10px;
-      cursor: move;
+    #radio-toggle-btn {
+      font-size: 1.2rem;
+      padding-left: 10px;
     }
-    #radio-container.minimized #radio-header {
-      margin-bottom: 0;
-      font-size: 1rem;
-      justify-content: center;
-      cursor: pointer; /* whole header toggles */
-    }
-    #radio-container.minimized #radio-toggle-btn {
-      padding-left: 0;
-      font-size: 1.1rem;
-    }
-    #radio-container.minimized #radio-iframe {
+
+    #radio-iframe-wrapper {
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 8px;
       display: none;
+    }
+
+    #radio-iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+    }
+
+    #radio-container.expanded #radio-iframe-wrapper {
+      display: block;
     }
   </style>
 </head>
@@ -155,100 +132,66 @@
     <p>© 2025 Jungle Adventuraddict. All rights reserved.</p>
   </footer>
 
-  <!-- Movable iHeart Radio iframe -->
-  <div id="radio-container" title="Drag to move 104.5 KISS FM Player" tabindex="0" aria-label="Movable radio player 104.5 KISS FM" class="minimized">
-    <div id="radio-header" >
-      <span>104.5 KISS FM</span>
-      <span id="radio-toggle-btn" aria-label="Toggle radio player">▶</span>
+  <!-- Movable expandable upward radio -->
+  <div id="radio-container" class="collapsed">
+    <div id="radio-iframe-wrapper">
+      <iframe
+        id="radio-iframe"
+        src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true"
+        allow="autoplay"
+        scrolling="no"
+        allowfullscreen
+        title="104.5 KISS FM Player"
+      ></iframe>
     </div>
-    <iframe
-      id="radio-iframe"
-      src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true"
-      width="100%"
-      height="200"
-      allow="autoplay"
-      frameborder="0"
-      scrolling="no"
-      allowfullscreen
-      title="104.5 KISS FM Radio Player"
-    ></iframe>
+    <div id="radio-header">
+      <span>104.5 KISS FM</span>
+      <span id="radio-toggle-btn">▶</span>
+    </div>
   </div>
 
   <script>
-    const radioContainer = document.getElementById('radio-container');
-    const radioHeader = document.getElementById('radio-header');
-    const radioToggleBtn = document.getElementById('radio-toggle-btn');
+    const container = document.getElementById('radio-container');
+    const header = document.getElementById('radio-header');
+    const toggleBtn = document.getElementById('radio-toggle-btn');
+    const iframeWrapper = document.getElementById('radio-iframe-wrapper');
 
-    // Start minimized
-    let minimized = true;
+    let expanded = false;
 
-    // Toggle expand/minimize on clicking toggle button or header when minimized
-    function toggleRadio() {
-      minimized = !minimized;
-      if(minimized) {
-        radioContainer.classList.add('minimized');
-        radioToggleBtn.textContent = '▶';
-      } else {
-        radioContainer.classList.remove('minimized');
-        radioToggleBtn.textContent = '▼';
-      }
-    }
-
-    radioToggleBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleRadio();
-    });
-    // Also toggle if user clicks the header text when minimized
-    radioHeader.addEventListener('click', () => {
-      if(minimized) toggleRadio();
+    header.addEventListener('click', () => {
+      expanded = !expanded;
+      container.classList.toggle('expanded', expanded);
+      toggleBtn.textContent = expanded ? '▼' : '▶';
     });
 
-    // Drag logic
+    // Dragging
     let isDragging = false;
-    let dragOffsetX = 0;
-    let dragOffsetY = 0;
+    let offsetX = 0;
+    let offsetY = 0;
 
-    // Drag only if mousedown on container or header, but not iframe
-    radioContainer.addEventListener('mousedown', (e) => {
-      if(e.target === radioContainer || e.target === radioHeader || e.target === radioToggleBtn) {
-        isDragging = true;
-        const rect = radioContainer.getBoundingClientRect();
-        dragOffsetX = e.clientX - rect.left;
-        dragOffsetY = e.clientY - rect.top;
-        radioContainer.style.transition = 'none';
-        document.body.style.userSelect = 'none';
-      }
+    header.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      const rect = container.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+      container.style.transition = 'none';
     });
 
-    window.addEventListener('mouseup', () => {
-      if(isDragging) {
-        isDragging = false;
-        radioContainer.style.transition = '';
-        document.body.style.userSelect = '';
-      }
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      container.style.transition = '';
     });
 
-    window.addEventListener('mousemove', (e) => {
-      if(!isDragging) return;
-      let newLeft = e.clientX - dragOffsetX;
-      let newTop = e.clientY - dragOffsetY;
-
-      // Keep inside viewport horizontally
-      const maxLeft = window.innerWidth - radioContainer.offsetWidth;
-      if(newLeft < 0) newLeft = 0;
-      if(newLeft > maxLeft) newLeft = maxLeft;
-
-      // Keep inside viewport vertically
-      const maxTop = window.innerHeight - radioContainer.offsetHeight;
-      if(newTop < 0) newTop = 0;
-      if(newTop > maxTop) newTop = maxTop;
-
-      radioContainer.style.left = newLeft + 'px';
-      radioContainer.style.top = newTop + 'px';
-      radioContainer.style.right = 'auto';
-      radioContainer.style.bottom = 'auto';
-      radioContainer.style.position = 'fixed';
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      let x = e.clientX - offsetX;
+      let y = e.clientY - offsetY;
+      container.style.left = x + 'px';
+      container.style.top = y + 'px';
+      container.style.right = 'auto';
+      container.style.bottom = 'auto';
     });
   </script>
 </body>
 </html>
+
