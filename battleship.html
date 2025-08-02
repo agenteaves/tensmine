@@ -1,4 +1,4 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -80,7 +80,7 @@
       background-color: #0056b3;
     }
 
-    /* Radio Widget Styles */
+    /* Floating Movable Radio Widget */
 
     #radio-widget {
       position: fixed;
@@ -88,7 +88,7 @@
       bottom: 120px;
       width: 180px;
       height: 50px;
-      background-color: #007BFF;
+      background-color: #e31c5f; /* iHeartRadio pink */
       border-radius: 25px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       cursor: pointer;
@@ -104,7 +104,7 @@
       width: 180px;
       height: 320px;
       border-radius: 16px;
-      background-color: #004a99;
+      background-color: #a1123d; /* darker iHeartRadio pink */
       box-shadow: 0 6px 20px rgba(0,0,0,0.5);
       padding: 10px;
     }
@@ -118,7 +118,7 @@
       padding: 0 15px;
       user-select: none;
       color: white;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 1rem;
       justify-content: flex-start;
     }
@@ -161,7 +161,7 @@
       width: 100%;
       border-radius: 8px;
       outline: none;
-      background-color: #222;
+      background-color: #40001a;
     }
 
     #radio-toggle:hover {
@@ -192,19 +192,24 @@
     <p>© 2025 Jungle Adventuraddict. All rights reserved.</p>
   </footer>
 
-  <!-- Radio Widget -->
-  <div id="radio-widget" title="Toggle Radio Player" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle radio player">
+  <!-- iHeartRadio Floating Radio Widget -->
+  <div id="radio-widget" title="Toggle iHeartRadio Player" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle radio player">
     <div id="radio-toggle" aria-hidden="true">
-      <!-- Radio Icon SVG -->
+      <!-- Heart Icon SVG for iHeartRadio style -->
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M12 3a9 9 0 0 0-9 9 9 9 0 0 0 18 0 9 9 0 0 0-9-9Zm0 2a7 7 0 0 1 7 7 7 7 0 0 1-14 0 7 7 0 0 1 7-7Zm0 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm0 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4Z"/>
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42
+          4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09
+          C13.09 3.81 14.76 3 16.5 3
+          19.58 3 22 5.42 22 8.5
+          c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
       </svg>
-      <span id="radio-channel-name">BBC Radio 4 LW</span>
+      <span id="radio-channel-name">iHeartRadio Channel</span>
     </div>
     <div id="radio-content" aria-hidden="true">
-      <p>Listen to Jungle Radio</p>
+      <p>Enjoy your favorite tunes!</p>
       <audio controls preload="none" aria-label="Radio player">
-        <source src="https://stream.live.vc.bbcmedia.co.uk/bbc_radio_fourlw" type="audio/mpeg" />
+        <!-- Example iHeartRadio stream URL, replace with your channel's actual stream -->
+        <source src="https://playerservices.streamtheworld.com/api/livestream-redirect/IHEARTRADIO_WYRK.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
     </div>
