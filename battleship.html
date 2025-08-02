@@ -64,7 +64,6 @@
       position: fixed;
       right: 20px;
       width: 240px;
-      z-index: 9999;
       user-select: none;
       cursor: grab;
       font-family: Arial, sans-serif;
@@ -77,12 +76,10 @@
       font-weight: bold;
       text-align: center;
       font-size: 0.85rem;
-      position: relative;
-      z-index: 2;
       user-select: none;
       cursor: pointer;
-      width: 100%;
-      box-sizing: border-box;
+      position: relative;
+      z-index: 2;
     }
     .radio-iframe-wrapper {
       position: absolute;
@@ -101,9 +98,8 @@
       height: 200px;
       border: none;
       border-radius: 8px;
-      user-select: none;
-      pointer-events: auto;
       background: black;
+      pointer-events: auto;
     }
   </style>
 </head>
@@ -125,45 +121,44 @@
 
   <footer><p>© 2025 Jungle Adventuraddict. All rights reserved.</p></footer>
 
-  <!-- Radio 1 -->
+  <!-- Independent Radio Widgets -->
   <div id="radio1" class="radio-widget" style="bottom: 100px;">
     <div class="radio-iframe-wrapper">
       <iframe
         src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true"
         allow="autoplay"
-        scrolling="no"
-        title="104.5 KISS FM Player"
-        draggable="false"
+        title="104.5 KISS FM"
       ></iframe>
     </div>
     <div class="radio-header">104.5 KISS FM ▶</div>
   </div>
 
-  <!-- Radio 2 -->
   <div id="radio2" class="radio-widget" style="bottom: 20px;">
     <div class="radio-iframe-wrapper">
       <iframe
         src="https://www.iheart.com/live/kicker-951-2205/?embed=true"
         allow="autoplay"
-        scrolling="no"
-        title="Kicker 95.1 Player"
-        draggable="false"
+        title="Kicker 95.1"
       ></iframe>
     </div>
     <div class="radio-header">Kicker 95.1 ▶</div>
   </div>
 
   <script>
-    document.querySelectorAll('.radio-widget').forEach(widget => {
+    function setupRadio(id) {
+      const widget = document.getElementById(id);
       const header = widget.querySelector('.radio-header');
       const wrapper = widget.querySelector('.radio-iframe-wrapper');
 
+      let expanded = false;
+
       header.addEventListener('click', () => {
-        const isOpen = widget.classList.toggle('expanded');
-        wrapper.style.display = isOpen ? 'block' : 'none';
-        header.textContent = header.textContent.replace(isOpen ? '▶' : '▼', isOpen ? '▼' : '▶');
+        expanded = !expanded;
+        wrapper.style.display = expanded ? 'block' : 'none';
+        header.textContent = header.textContent.replace(expanded ? '▶' : '▼', expanded ? '▼' : '▶');
       });
 
+      // Dragging logic
       let dragging = false, offsetX = 0, offsetY = 0;
 
       header.addEventListener('mousedown', e => {
@@ -182,24 +177,30 @@
 
       document.addEventListener('mousemove', e => {
         if (!dragging) return;
+
         const width = widget.offsetWidth;
         const height = widget.offsetHeight;
+        const playerHeight = wrapper.style.display === 'block' ? 210 : 0;
+
         let newX = e.clientX - offsetX;
         let newY = e.clientY - offsetY;
 
         const maxX = window.innerWidth - width;
-        const maxY = window.innerHeight - height;
+        const maxY = window.innerHeight - height - playerHeight;
 
         newX = Math.max(0, Math.min(newX, maxX));
-        newY = Math.max(0, Math.min(newY, maxY));
+        newY = Math.max(playerHeight, Math.min(newY, maxY));
 
         widget.style.left = newX + 'px';
         widget.style.top = newY + 'px';
         widget.style.right = 'auto';
         widget.style.bottom = 'auto';
-        widget.style.position = 'fixed';
       });
-    });
+    }
+
+    // Setup both radios independently
+    setupRadio('radio1');
+    setupRadio('radio2');
   </script>
 </body>
 </html>
