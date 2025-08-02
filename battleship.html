@@ -35,7 +35,8 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding-top: 0.5rem;
+      padding: 0.5rem;
+      padding-bottom: 120px; /* room for radio */
     }
 
     iframe.game-frame {
@@ -77,12 +78,22 @@
     /* Radio widget styles */
     #radio-container {
       position: fixed;
-      bottom: 10px;
-      right: 10px;
+      bottom: 20px;
+      right: 20px;
       z-index: 9999;
-      cursor: grab;
       user-select: none;
       width: 220px;
+    }
+
+    #radio-toggle {
+      background: #000;
+      color: white;
+      padding: 10px;
+      border-radius: 12px;
+      font-weight: bold;
+      text-align: center;
+      font-size: 0.85rem;
+      cursor: pointer;
     }
 
     #radio-iframe-wrapper {
@@ -90,29 +101,17 @@
       border-radius: 12px 12px 0 0;
       overflow: hidden;
       display: none;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
+    }
+
+    #radio-container.expanded #radio-iframe-wrapper {
+      display: block;
     }
 
     #radio-iframe {
       width: 220px;
       height: 200px;
       border: none;
-    }
-
-    #radio-toggle {
-      background: #000;
-      color: white;
-      padding: 10px;
-      border-radius: 0 0 12px 12px;
-      font-weight: bold;
-      text-align: center;
-      font-size: 0.85rem;
-      cursor: pointer;
-      width: 220px;
-    }
-
-    #radio-container.expanded #radio-iframe-wrapper {
-      display: block;
     }
   </style>
 </head>
@@ -153,7 +152,6 @@
   </div>
 
   <script>
-    // Expand/collapse toggle
     const radioToggle = document.getElementById('radio-toggle');
     const radioContainer = document.getElementById('radio-container');
 
@@ -163,13 +161,16 @@
 
     // Drag functionality
     let isDragging = false;
-    let offsetX, offsetY;
+    let offsetX = 0;
+    let offsetY = 0;
 
-    radioContainer.addEventListener('mousedown', (e) => {
+    radioToggle.addEventListener('mousedown', (e) => {
       isDragging = true;
-      offsetX = e.clientX - radioContainer.getBoundingClientRect().left;
-      offsetY = e.clientY - radioContainer.getBoundingClientRect().top;
+      const rect = radioContainer.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
       radioContainer.style.cursor = 'grabbing';
+      e.preventDefault();
     });
 
     document.addEventListener('mousemove', (e) => {
