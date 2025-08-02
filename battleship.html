@@ -1,11 +1,10 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Battleship War Multiplayer | Jungle Adventuraddict</title>
   <meta name="description" content="Play Battleship War Multiplayer online for free on Jungle Adventuraddict. Sink ships and challenge friends!">
-  <link rel="stylesheet" href="style.css" />
   <style>
     html, body {
       margin: 0;
@@ -15,6 +14,7 @@
       background: url('https://www.wallpapergap.com/cdn/24/77/dark-green-jungle-wallpaper-3840x2160.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
+      overflow: hidden;
     }
 
     body {
@@ -26,7 +26,7 @@
     header, footer {
       background-color: rgba(0, 0, 0, 0.7);
       text-align: center;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem;
     }
 
     .content {
@@ -34,7 +34,6 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding-top: 0.5rem;
     }
 
     iframe.game-frame {
@@ -45,7 +44,6 @@
       border: none;
       border-radius: 10px;
       background-color: #000;
-      margin-top: -1rem;
     }
 
     .back-btn, .shop-btn {
@@ -70,39 +68,43 @@
 
     .radio-container {
       position: fixed;
-      right: 0.5rem;
-      top: 30%;
+      top: 50%;
+      right: 10px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 6px;
       z-index: 1000;
+      transform: translateY(-50%);
     }
 
     .radio-widget {
-      width: 240px;
+      width: 200px;
       position: absolute;
-      cursor: move;
     }
 
     .radio-header {
       background-color: #000;
       color: white;
-      font-size: 14px;
-      padding: 4px 6px;
-      cursor: pointer;
-      border-radius: 6px 6px 0 0;
+      font-size: 13px;
+      padding: 2px 6px;
+      cursor: move;
+      border-radius: 6px;
       text-align: center;
       user-select: none;
+      z-index: 2;
+      position: relative;
     }
 
     .radio-body {
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      width: 100%;
       display: none;
-      background-color: black;
       border: 2px solid #333;
-      border-top: none;
-      height: 0;
+      border-radius: 6px 6px 0 0;
       overflow: hidden;
-      transition: height 0.3s ease;
+      background-color: black;
     }
 
     .radio-body iframe {
@@ -113,7 +115,6 @@
 
     .radio-widget.expanded .radio-body {
       display: block;
-      height: 200px;
     }
   </style>
 </head>
@@ -134,7 +135,7 @@
     </iframe>
   </div>
 
-  <div class="radio-container" id="radioContainer">
+  <div class="radio-container">
     <!-- Radio 1 -->
     <div class="radio-widget" style="top: 0px;">
       <div class="radio-header">104.5 Kiss FM</div>
@@ -165,17 +166,11 @@
   </footer>
 
   <script>
-    const radios = document.querySelectorAll('.radio-widget');
-
-    radios.forEach(widget => {
+    document.querySelectorAll('.radio-widget').forEach(widget => {
       const header = widget.querySelector('.radio-header');
-      let isDragging = false, offsetX, offsetY;
-
-      header.addEventListener('click', e => {
-        if (!isDragging) {
-          widget.classList.toggle('expanded');
-        }
-      });
+      const body = widget.querySelector('.radio-body');
+      let isDragging = false;
+      let offsetX, offsetY;
 
       header.addEventListener('mousedown', e => {
         isDragging = true;
@@ -185,21 +180,36 @@
         e.preventDefault();
       });
 
+      header.addEventListener('mouseup', e => {
+        if (!isDragging) return;
+        isDragging = false;
+        widget.style.zIndex = 1000;
+      });
+
       document.addEventListener('mousemove', e => {
         if (isDragging) {
           let x = e.clientX - offsetX;
           let y = e.clientY - offsetY;
-          // Constrain within window
+
           const maxX = window.innerWidth - widget.offsetWidth;
-          const maxY = window.innerHeight - widget.offsetHeight;
-          widget.style.left = `${Math.min(Math.max(0, x), maxX)}px`;
-          widget.style.top = `${Math.min(Math.max(0, y), maxY)}px`;
+          const maxY = window.innerHeight - 50; // leave some margin
+          x = Math.max(0, Math.min(x, maxX));
+          y = Math.max(0, Math.min(y, maxY));
+
+          widget.style.left = `${x}px`;
+          widget.style.top = `${y}px`;
           widget.style.position = 'fixed';
         }
       });
 
       document.addEventListener('mouseup', () => {
         isDragging = false;
+      });
+
+      header.addEventListener('click', () => {
+        if (!isDragging) {
+          widget.classList.toggle('expanded');
+        }
       });
     });
   </script>
