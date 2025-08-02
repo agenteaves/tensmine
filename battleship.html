@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -80,13 +80,13 @@
       background-color: #0056b3;
     }
 
-    /* Remodeled Radio Widget */
+    /* Radio Widget Styles */
 
     #radio-widget {
       position: fixed;
       right: 10px;
       bottom: 120px;
-      width: 140px;
+      width: 180px;
       height: 50px;
       background-color: #007BFF;
       border-radius: 25px;
@@ -95,34 +95,32 @@
       z-index: 9999;
       user-select: none;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: height 0.35s ease, width 0.35s ease, border-radius 0.35s ease;
-      overflow: hidden;
       flex-direction: column;
+      overflow: hidden;
+      transition: height 0.35s ease, width 0.35s ease, border-radius 0.35s ease, background-color 0.35s ease;
     }
 
     #radio-widget.expanded {
-      width: 160px;
+      width: 180px;
       height: 320px;
       border-radius: 16px;
       background-color: #004a99;
       box-shadow: 0 6px 20px rgba(0,0,0,0.5);
       padding: 10px;
-      justify-content: flex-start;
     }
 
     #radio-toggle {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
+      gap: 12px;
       width: 100%;
       height: 50px;
+      padding: 0 15px;
       user-select: none;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      justify-content: flex-start;
     }
 
     #radio-toggle svg {
@@ -132,9 +130,11 @@
       flex-shrink: 0;
     }
 
-    #radio-label {
+    #radio-channel-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       flex-grow: 1;
-      user-select: none;
     }
 
     #radio-content {
@@ -164,13 +164,11 @@
       background-color: #222;
     }
 
-    /* Hover effect for toggle */
     #radio-toggle:hover {
       background-color: rgba(255, 255, 255, 0.15);
       border-radius: 25px;
       transition: background-color 0.3s ease;
     }
-
   </style>
 </head>
 <body>
@@ -194,14 +192,14 @@
     <p>© 2025 Jungle Adventuraddict. All rights reserved.</p>
   </footer>
 
-  <!-- Remodeled Radio Widget -->
+  <!-- Radio Widget -->
   <div id="radio-widget" title="Toggle Radio Player" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle radio player">
     <div id="radio-toggle" aria-hidden="true">
       <!-- Radio Icon SVG -->
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path d="M12 3a9 9 0 0 0-9 9 9 9 0 0 0 18 0 9 9 0 0 0-9-9Zm0 2a7 7 0 0 1 7 7 7 7 0 0 1-14 0 7 7 0 0 1 7-7Zm0 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm0 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4Z"/>
       </svg>
-      <span id="radio-label">Radio</span>
+      <span id="radio-channel-name">BBC Radio 4 LW</span>
     </div>
     <div id="radio-content" aria-hidden="true">
       <p>Listen to Jungle Radio</p>
