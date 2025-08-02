@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Battleship War Multiplayer | Jungle Adventuraddict</title>
   <meta name="description" content="Play Battleship War Multiplayer online for free on Jungle Adventuraddict. Sink ships and challenge friends!">
   <meta name="keywords" content="Battleship, multiplayer game, Jungle Adventuraddict, online games, free browser game, GamePix">
   <meta name="author" content="Jungle Adventuraddict">
-  <link rel="stylesheet" href="style.css" />
   <style>
     html, body {
       margin: 0;
@@ -30,7 +29,6 @@
       background-color: rgba(0, 0, 0, 0.7);
       text-align: center;
       padding: 0.5rem 1rem;
-      z-index: 1;
     }
 
     .content {
@@ -39,7 +37,6 @@
       justify-content: center;
       align-items: flex-start;
       padding-top: 0.5rem;
-      z-index: 1;
     }
 
     iframe.game-frame {
@@ -51,7 +48,6 @@
       border-radius: 10px;
       background-color: #000;
       margin-top: -1rem;
-      z-index: 1;
     }
 
     .back-btn, .shop-btn {
@@ -64,7 +60,7 @@
       border-radius: 6px;
       font-size: 0.9rem;
       transition: background-color 0.3s ease;
-      z-index: 2;
+      z-index: 10;
     }
 
     .back-btn {
@@ -81,34 +77,39 @@
 
     .radio-container {
       position: fixed;
-      right: 10px;
-      width: 240px;
-      z-index: 99;
-      background-color: black;
+      right: 1rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .radio-widget {
+      background-color: #000;
       color: white;
-      border-radius: 8px;
+      width: 240px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      position: absolute;
       cursor: move;
-      user-select: none;
     }
 
     .radio-header {
-      padding: 10px;
+      padding: 4px 8px;
       background-color: #111;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 8px;
-      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
       text-align: center;
     }
 
-    .radio-iframe {
+    .radio-frame {
       display: none;
       width: 100%;
-      height: 160px;
+      height: 200px;
       border: none;
-      transition: opacity 0.3s ease;
     }
 
-    .radio-expanded .radio-iframe {
+    .radio-expanded .radio-frame {
       display: block;
     }
   </style>
@@ -134,62 +135,55 @@
     <p>© 2025 Jungle Adventuraddict. All rights reserved.</p>
   </footer>
 
-  <div id="radio1" class="radio-container" style="top: 100px;">
-    <div class="radio-header" onclick="toggleRadio('radio1')">104.5 Kiss FM</div>
-    <iframe class="radio-iframe" src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true" allow="autoplay"></iframe>
-  </div>
-
-  <div id="radio2" class="radio-container" style="top: 270px;">
-    <div class="radio-header" onclick="toggleRadio('radio2')">95.1 Kicker FM</div>
-    <iframe class="radio-iframe" src="https://www.iheart.com/live/kicker-951-2205/?embed=true" allow="autoplay"></iframe>
+  <div class="radio-container">
+    <div class="radio-widget" style="top: 80px;">
+      <div class="radio-header">104.5 Kiss FM</div>
+      <iframe class="radio-frame" allow="autoplay" src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true"></iframe>
+    </div>
+    <div class="radio-widget" style="top: 300px;">
+      <div class="radio-header">Kicker 95.1</div>
+      <iframe class="radio-frame" allow="autoplay" src="https://www.iheart.com/live/kicker-951-2205/?embed=true"></iframe>
+    </div>
+    <div class="radio-widget" style="top: 520px;">
+      <div class="radio-header">Big Dog 106</div>
+      <iframe class="radio-frame" allow="autoplay" src="https://www.iheart.com/live/big-dog-106-2193/?embed=true"></iframe>
+    </div>
   </div>
 
   <script>
-    function toggleRadio(id) {
-      const container = document.getElementById(id);
-      container.classList.toggle('radio-expanded');
-    }
+    document.querySelectorAll('.radio-widget').forEach(widget => {
+      const header = widget.querySelector('.radio-header');
+      const frame = widget.querySelector('.radio-frame');
 
-    function makeDraggable(el) {
-      let isMouseDown = false;
+      header.addEventListener('click', () => {
+        widget.classList.toggle('radio-expanded');
+      });
+
       let offsetX, offsetY;
+      header.addEventListener('mousedown', (e) => {
+        offsetX = e.clientX - widget.getBoundingClientRect().left;
+        offsetY = e.clientY - widget.getBoundingClientRect().top;
+        const onMouseMove = (e) => {
+          let x = e.clientX - offsetX;
+          let y = e.clientY - offsetY;
 
-      const header = el.querySelector('.radio-header');
+          // Prevent dragging off screen
+          x = Math.max(0, Math.min(window.innerWidth - widget.offsetWidth, x));
+          y = Math.max(0, Math.min(window.innerHeight - widget.offsetHeight, y));
 
-      header.addEventListener('mousedown', function(e) {
-        isMouseDown = true;
-        offsetX = e.clientX - el.offsetLeft;
-        offsetY = e.clientY - el.offsetTop;
+          widget.style.left = x + 'px';
+          widget.style.top = y + 'px';
+        };
+
+        const onMouseUp = () => {
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseUp);
+        };
+
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
       });
-
-      function onMouseMove(e) {
-        if (!isMouseDown) return;
-
-        let x = e.clientX - offsetX;
-        let y = e.clientY - offsetY;
-
-        const maxX = window.innerWidth - el.offsetWidth;
-        const maxY = window.innerHeight - el.offsetHeight;
-
-        x = Math.max(0, Math.min(x, maxX));
-        y = Math.max(0, Math.min(y, maxY));
-
-        el.style.left = x + 'px';
-        el.style.top = y + 'px';
-      }
-
-      function onMouseUp() {
-        isMouseDown = false;
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
-      }
-    }
-
-    makeDraggable(document.getElementById('radio1'));
-    makeDraggable(document.getElementById('radio2'));
+    });
   </script>
 </body>
 </html>
-
