@@ -72,13 +72,14 @@
       right: 10px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
       z-index: 1000;
     }
 
     .radio-widget {
       width: 180px;
       position: absolute;
+      z-index: 1001;
     }
 
     .radio-header {
@@ -90,7 +91,6 @@
       border-radius: 6px;
       text-align: center;
       user-select: none;
-      z-index: 2;
       position: relative;
     }
 
@@ -128,7 +128,7 @@
   <div class="content">
     <iframe 
       class="game-frame"
-      src="https://play.gamepix.com/battleship-war-multiplayer/embed?sid=1"
+      src="https://html5.gamedistribution.com/rvvASMiU/f81edbd0d29b4357a70713b94a0ecbd1/index.html?gd_sdk_referrer_url=https://miriele.com"
       allowfullscreen
       scrolling="no">
     </iframe>
@@ -175,23 +175,22 @@
         isDragging = true;
         offsetX = e.clientX - widget.getBoundingClientRect().left;
         offsetY = e.clientY - widget.getBoundingClientRect().top;
-        widget.style.zIndex = 1001;
+        widget.style.zIndex = 1002;
         e.preventDefault();
       });
 
       document.addEventListener('mousemove', e => {
         if (isDragging) {
           const isExpanded = widget.classList.contains('expanded');
-          const bodyHeight = isExpanded ? 200 : 0;
+          const bodyHeight = isExpanded ? body.offsetHeight : 0;
           const headerHeight = header.offsetHeight;
-          const totalHeight = headerHeight + bodyHeight;
 
           let x = e.clientX - offsetX;
           let y = e.clientY - offsetY;
 
           const minX = 0;
           const maxX = window.innerWidth - widget.offsetWidth;
-          const minY = bodyHeight;  // can't go so high the expanded body goes out of view
+          const minY = bodyHeight;
           const maxY = window.innerHeight - headerHeight;
 
           x = Math.max(minX, Math.min(x, maxX));
@@ -200,7 +199,6 @@
           widget.style.left = `${x}px`;
           widget.style.top = `${y}px`;
           widget.style.right = 'auto';
-          widget.style.position = 'fixed';
         }
       });
 
@@ -210,7 +208,19 @@
 
       header.addEventListener('click', () => {
         if (!isDragging) {
+          const wasExpanded = widget.classList.contains('expanded');
           widget.classList.toggle('expanded');
+
+          // Adjust position so expanded body stays visible
+          const widgetRect = widget.getBoundingClientRect();
+          const bodyHeight = body.offsetHeight;
+          if (!wasExpanded) {
+            const topOffset = widgetRect.top;
+            if (topOffset < bodyHeight) {
+              let newTop = Math.min(window.innerHeight - header.offsetHeight, bodyHeight + 10);
+              widget.style.top = `${newTop}px`;
+            }
+          }
         }
       });
     });
