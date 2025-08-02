@@ -30,7 +30,7 @@
       justify-content: center;
       align-items: flex-start;
       padding: 0.5rem;
-      padding-bottom: 150px; /* space for radio */
+      padding-bottom: 150px;
       position: relative;
     }
     iframe.game-frame {
@@ -60,17 +60,16 @@
     .shop-btn { right: 1rem; }
     .back-btn:hover, .shop-btn:hover { background-color: #0056b3; }
 
-    /* Radio Widget */
-    #radio-container {
+    .radio-widget {
       position: fixed;
-      bottom: 20px;
       right: 20px;
-      width: 220px;
+      width: 240px;
       z-index: 9999;
       user-select: none;
       cursor: grab;
+      font-family: Arial, sans-serif;
     }
-    #radio-header {
+    .radio-header {
       background: #000;
       color: white;
       padding: 10px;
@@ -81,33 +80,23 @@
       position: relative;
       z-index: 2;
       user-select: none;
+      cursor: pointer;
+      width: 100%;
+      box-sizing: border-box;
     }
-    #radio-iframe-wrapper {
+    .radio-iframe-wrapper {
       position: absolute;
-      bottom: 100%; /* place above header */
+      bottom: 100%;
       left: 0;
       width: 100%;
-      height: 410px; /* 2 x 200px + spacing */
+      height: 210px;
       background: #000;
       border-radius: 12px 12px 0 0;
       overflow: hidden;
-      display: none; /* hidden by default */
-      z-index: 1;
-      flex-direction: column;
-      padding: 8px 0;
-      box-sizing: border-box;
-      gap: 12px; /* space between iframes */
-      display: flex; /* use flex */
-      flex-wrap: nowrap;
-      flex-direction: column;
-    }
-    #radio-container:not(.expanded) #radio-iframe-wrapper {
       display: none;
+      z-index: 1;
     }
-    #radio-container.expanded #radio-iframe-wrapper {
-      display: flex;
-    }
-    #radio-iframe-wrapper iframe {
+    .radio-iframe-wrapper iframe {
       width: 100%;
       height: 200px;
       border: none;
@@ -136,16 +125,9 @@
 
   <footer><p>© 2025 Jungle Adventuraddict. All rights reserved.</p></footer>
 
-  <!-- Floating Radio Widget -->
-  <div id="radio-container" draggable="false">
-    <div id="radio-iframe-wrapper">
-      <iframe
-        src="https://www.iheart.com/live/kicker-951-2205/?embed=true"
-        allow="autoplay"
-        scrolling="no"
-        title="Kicker 95.1 FM Player"
-        draggable="false"
-      ></iframe>
+  <!-- Radio 1 -->
+  <div id="radio1" class="radio-widget" style="bottom: 100px;">
+    <div class="radio-iframe-wrapper">
       <iframe
         src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true"
         allow="autoplay"
@@ -154,67 +136,69 @@
         draggable="false"
       ></iframe>
     </div>
-    <div id="radio-header" draggable="false">Radio Stations ▶</div>
+    <div class="radio-header">104.5 KISS FM ▶</div>
+  </div>
+
+  <!-- Radio 2 -->
+  <div id="radio2" class="radio-widget" style="bottom: 20px;">
+    <div class="radio-iframe-wrapper">
+      <iframe
+        src="https://www.iheart.com/live/kicker-951-2205/?embed=true"
+        allow="autoplay"
+        scrolling="no"
+        title="Kicker 95.1 Player"
+        draggable="false"
+      ></iframe>
+    </div>
+    <div class="radio-header">Kicker 95.1 ▶</div>
   </div>
 
   <script>
-    const radioContainer = document.getElementById('radio-container');
-    const radioHeader = document.getElementById('radio-header');
-    const iframeWrapper = document.getElementById('radio-iframe-wrapper');
+    document.querySelectorAll('.radio-widget').forEach(widget => {
+      const header = widget.querySelector('.radio-header');
+      const wrapper = widget.querySelector('.radio-iframe-wrapper');
 
-    // Ensure radios start collapsed on page load:
-    window.addEventListener('load', () => {
-      radioContainer.classList.remove('expanded');
-      iframeWrapper.style.display = 'none';
-    });
+      header.addEventListener('click', () => {
+        const isOpen = widget.classList.toggle('expanded');
+        wrapper.style.display = isOpen ? 'block' : 'none';
+        header.textContent = header.textContent.replace(isOpen ? '▶' : '▼', isOpen ? '▼' : '▶');
+      });
 
-    radioHeader.addEventListener('click', () => {
-      radioContainer.classList.toggle('expanded');
-      if (radioContainer.classList.contains('expanded')) {
-        iframeWrapper.style.display = 'flex';
-        radioHeader.textContent = 'Radio Stations ▼';
-      } else {
-        iframeWrapper.style.display = 'none';
-        radioHeader.textContent = 'Radio Stations ▶';
-      }
-    });
+      let dragging = false, offsetX = 0, offsetY = 0;
 
-    let dragging = false, offsetX = 0, offsetY = 0;
+      header.addEventListener('mousedown', e => {
+        dragging = true;
+        const rect = widget.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+        widget.style.cursor = 'grabbing';
+        e.preventDefault();
+      });
 
-    radioHeader.addEventListener('mousedown', e => {
-      dragging = true;
-      const rect = radioContainer.getBoundingClientRect();
-      offsetX = e.clientX - rect.left;
-      offsetY = e.clientY - rect.top;
-      radioContainer.style.cursor = 'grabbing';
-      e.preventDefault();
-    });
+      document.addEventListener('mouseup', () => {
+        dragging = false;
+        widget.style.cursor = 'grab';
+      });
 
-    document.addEventListener('mouseup', () => {
-      dragging = false;
-      radioContainer.style.cursor = 'grab';
-    });
+      document.addEventListener('mousemove', e => {
+        if (!dragging) return;
+        const width = widget.offsetWidth;
+        const height = widget.offsetHeight;
+        let newX = e.clientX - offsetX;
+        let newY = e.clientY - offsetY;
 
-    document.addEventListener('mousemove', e => {
-      if (!dragging) return;
+        const maxX = window.innerWidth - width;
+        const maxY = window.innerHeight - height;
 
-      const container = radioContainer;
-      const width = container.offsetWidth;
-      const height = container.offsetHeight;
-      const maxX = window.innerWidth - width;
-      const maxY = window.innerHeight - height;
+        newX = Math.max(0, Math.min(newX, maxX));
+        newY = Math.max(0, Math.min(newY, maxY));
 
-      let newX = e.clientX - offsetX;
-      let newY = e.clientY - offsetY;
-
-      newX = Math.max(0, Math.min(newX, maxX));
-      newY = Math.max(0, Math.min(newY, maxY));
-
-      container.style.left = newX + 'px';
-      container.style.top = newY + 'px';
-      container.style.right = 'auto';
-      container.style.bottom = 'auto';
-      container.style.position = 'fixed';
+        widget.style.left = newX + 'px';
+        widget.style.top = newY + 'px';
+        widget.style.right = 'auto';
+        widget.style.bottom = 'auto';
+        widget.style.position = 'fixed';
+      });
     });
   </script>
 </body>
