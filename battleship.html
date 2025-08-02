@@ -6,119 +6,65 @@
   <title>Jungle Adventuraddict | Home</title>
   <meta name="description" content="Shop everyday essentials, personal care, and lifestyle goods at Miriele">
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #121212;
-      color: #f1f1f1;
-    }
-
-    header {
-      background-color: #1f1f1f;
-      padding: 1rem;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-      border-bottom: 2px solid #333;
-    }
-
-    .radio-buttons {
-      margin-top: 1rem;
-      text-align: center;
-      z-index: 10;
-    }
-
-    .radio-buttons label {
-      margin: 0 10px;
-      cursor: pointer;
+      background-color: #111;
+      color: #fff;
     }
 
     .container {
       display: flex;
       flex-direction: row;
-      justify-content: center;
+      justify-content: space-between;
       align-items: flex-start;
-      flex-wrap: wrap;
-      padding: 2rem 1rem;
-      gap: 2rem;
+      padding: 20px;
     }
 
-    .left-image-container {
-      max-width: 300px;
-      text-align: center;
+    .left-image {
+      width: 300px;
     }
 
-    .left-image-container img {
+    .left-image img {
       width: 100%;
       height: auto;
-      border-radius: 10px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
     }
 
-    .left-image-button {
-      margin-top: -40px;
-      margin-bottom: 20px;
+    .shop-button {
+      position: absolute;
+      margin-top: -150px;
+      margin-left: 30px;
       padding: 10px 20px;
-      background-color: #007BFF;
-      color: white;
+      background-color: #ff6600;
+      color: #fff;
       border: none;
-      border-radius: 6px;
+      border-radius: 5px;
+      font-weight: bold;
       cursor: pointer;
-      font-size: 1rem;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-      transition: background-color 0.3s ease;
-      position: relative;
-      z-index: 2;
     }
 
-    .left-image-button:hover {
-      background-color: #0056b3;
+    .game-container {
+      flex-grow: 1;
+      margin-left: 20px;
     }
 
-    .game-wrapper {
-      flex: 1;
-      min-width: 300px;
-      max-width: 1024px;
-    }
-
-    iframe.game-frame {
+    iframe {
       width: 100%;
-      height: 80vh;
+      height: 600px;
       border: none;
-      border-radius: 10px;
-      background-color: #000;
     }
 
-    footer {
-      background-color: #1f1f1f;
-      padding: 1rem;
+    .radio-buttons {
       text-align: center;
-      font-size: 0.9rem;
-      color: #aaa;
-      border-top: 2px solid #333;
-      margin-top: 2rem;
+      margin-top: 10px;
     }
 
-    @media screen and (max-width: 768px) {
-      .left-image-container {
-        display: none;
-      }
-
-      iframe.game-frame {
-        height: 60vh;
-      }
+    .radio-buttons label {
+      margin: 0 10px;
     }
   </style>
 </head>
 <body>
-
-  <header>
-    Jungle Adventuraddict
-  </header>
 
   <div class="radio-buttons">
     <label><input type="radio" name="radio" onclick="playStream('https://streaming.live365.com/a86253')"> Classic Hits 109</label>
@@ -128,21 +74,15 @@
   </div>
 
   <div class="container">
-    <div class="left-image-container">
-      <img src="https://i.imgur.com/xasewYq.png" alt="Indoor Hydroponic Garden System" loading="lazy" />
-      <button class="left-image-button" onclick="window.open('https://miriele.com/indoor-hydroponic-garden-system/', '_blank')">
-        SHOP
-      </button>
+    <div class="left-image">
+      <img src="https://i.imgur.com/xasewYq.png" alt="Ad Banner" />
+      <button class="shop-button" onclick="window.open('https://miriele.com/indoor-hydroponic-garden-system/', '_blank')">SHOP</button>
     </div>
 
-    <div class="game-wrapper">
-      <iframe class="game-frame" src="https://html-classic.itch.zone/html/9505093/index.html?v=1713549271" allowfullscreen></iframe>
+    <div class="game-container">
+      <iframe src="https://html-classic.itch.zone/html/9505093/index.html?v=1713549271" allowfullscreen></iframe>
     </div>
   </div>
-
-  <footer>
-    &copy; 2025 Miriele. All rights reserved.
-  </footer>
 
   <script>
     let currentAudio = null;
