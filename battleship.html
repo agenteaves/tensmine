@@ -1,76 +1,117 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF‑8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Battleship War Multiplayer | Jungle Adventuraddict</title>
-  <meta name="description" content="Play Battleship War Multiplayer online for free on Jungle Adventuraddict.">
+  <meta name="description" content="Play Battleship War Multiplayer online for free on Jungle Adventuraddict. Sink ships and challenge friends!">
+  <meta name="keywords" content="Battleship, multiplayer game, Jungle Adventuraddict, online games, free browser game, GamePix">
+  <meta name="author" content="Jungle Adventuraddict">
+  <link rel="stylesheet" href="style.css" />
   <style>
     html, body {
-      margin: 0; padding: 0; height: 100%;
+      margin: 0;
+      padding: 0;
+      height: 100%;
       font-family: Arial, sans-serif;
       background: url('https://www.wallpapergap.com/cdn/24/77/dark-green-jungle-wallpaper-3840x2160.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
       overflow: hidden;
     }
+
     body {
-      display: flex; flex-direction: column;
-    }
-    header, footer {
-      background-color: rgba(0,0,0,0.7);
-      text-align: center; padding: 0.5rem 1rem;
-      z-index: 1;
-    }
-    .content {
-      flex: 1;
-      display: flex; justify-content: center; align-items: flex-start;
-      padding: 0.5rem;
-      padding-bottom: 150px; /* space for radio */
+      display: flex;
+      flex-direction: column;
       position: relative;
     }
-    iframe.game-frame {
-      width: 90vw; height: 80vh;
-      max-width: 1024px; max-height: 768px;
-      border: none; border-radius: 10px; background-color: #000;
+
+    header, footer {
+      background-color: rgba(0, 0, 0, 0.7);
+      text-align: center;
+      padding: 0.5rem 1rem;
     }
+
+    .content {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 0.5rem;
+    }
+
+    iframe.game-frame {
+      width: 90vw;
+      height: 80vh;
+      max-width: 1024px;
+      max-height: 768px;
+      border: none;
+      border-radius: 10px;
+      background-color: #000;
+      margin-top: -1rem;
+    }
+
     .back-btn, .shop-btn {
-      position: absolute; top: 1rem;
-      padding: 8px 16px; background-color: #007BFF;
-      color: white; text-decoration: none;
-      border-radius: 6px; font-size: 0.9rem;
-      transition: background-color 0.3s;
+      position: absolute;
+      top: 1rem;
+      padding: 8px 16px;
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: background-color 0.3s ease;
       z-index: 10;
     }
-    .back-btn:hover, .shop-btn:hover { background-color: #0056b3; }
-    .back-btn { left: 1rem; }
-    .shop-btn { right: 1rem; }
 
-    /* Radio widget */
+    .back-btn {
+      left: 1rem;
+    }
+
+    .shop-btn {
+      right: 1rem;
+    }
+
+    .back-btn:hover, .shop-btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Radio Widget */
     #radio-container {
-      position: fixed; bottom: 20px; right: 20px;
-      width: 220px; z-index: 9999;
-      cursor: grab; user-select: none;
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      width: 220px;
+      z-index: 9999;
+      user-select: none;
+      cursor: grab;
     }
-    #radio-toggle {
-      background: #000; color: white;
-      padding: 10px; font-weight: bold;
-      text-align: center; font-size: 0.85rem;
-      border-radius: 12px; width: 100%;
+
+    #radio-header {
+      background: #000;
+      color: white;
+      padding: 10px;
+      border-radius: 12px 12px 0 0;
+      font-weight: bold;
+      text-align: center;
+      font-size: 0.85rem;
     }
+
     #radio-iframe-wrapper {
-      position: absolute; bottom: 40px; /* lift iframe above the title */
-      left: 0; width: 100%;
-      display: none; z-index: -1;
-      background: #000; border-radius: 12px 12px 0 0;
+      display: none;
+      background: #000;
+      border-radius: 0 0 12px 12px;
       overflow: hidden;
     }
+
+    #radio-iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+    }
+
     #radio-container.expanded #radio-iframe-wrapper {
       display: block;
-    }
-    #radio-iframe {
-      width: 100%; height: 200px;
-      border: none;
     }
   </style>
 </head>
@@ -78,56 +119,71 @@
   <a href="index.html" class="back-btn">← Back to Home</a>
   <a href="https://miriele.com" target="_blank" class="shop-btn">Shop</a>
 
-  <header><h1>Battleship War Multiplayer</h1></header>
+  <header>
+    <h1>Battleship War Multiplayer</h1>
+  </header>
 
   <div class="content">
-    <iframe class="game-frame"
+    <iframe 
+      class="game-frame"
       src="https://play.gamepix.com/battleship-war-multiplayer/embed?sid=1"
-      allowfullscreen scrolling="no">
+      allowfullscreen
+      scrolling="no">
     </iframe>
   </div>
 
-  <footer><p>© 2025 Jungle Adventuraddict. All rights reserved.</p></footer>
+  <footer>
+    <p>© 2025 Jungle Adventuraddict. All rights reserved.</p>
+  </footer>
 
-  <!-- Radio Widget -->
+  <!-- Floating Radio Widget -->
   <div id="radio-container">
+    <div id="radio-header">104.5 KISS FM ▶</div>
     <div id="radio-iframe-wrapper">
-      <iframe id="radio-iframe"
-        src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true"
-        allow="autoplay" scrolling="no"
-        title="104.5 KISS FM Player"></iframe>
+      <iframe id="radio-iframe" src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true" allow="autoplay"></iframe>
     </div>
-    <div id="radio-toggle">104.5 KISS FM ▲</div>
   </div>
 
   <script>
-    const radioToggle = document.getElementById('radio-toggle');
     const radioContainer = document.getElementById('radio-container');
+    const radioHeader = document.getElementById('radio-header');
 
-    radioToggle.addEventListener('click', () => {
+    // Toggle expand
+    radioHeader.addEventListener('click', () => {
       radioContainer.classList.toggle('expanded');
     });
 
+    // Dragging logic with bounds
     let dragging = false, offsetX = 0, offsetY = 0;
 
-    radioToggle.addEventListener('mousedown', e => {
+    radioHeader.addEventListener('mousedown', e => {
       dragging = true;
       const rect = radioContainer.getBoundingClientRect();
       offsetX = e.clientX - rect.left;
       offsetY = e.clientY - rect.top;
-      e.preventDefault();
     });
+
+    document.addEventListener('mouseup', () => dragging = false);
 
     document.addEventListener('mousemove', e => {
       if (!dragging) return;
-      radioContainer.style.left = (e.clientX - offsetX) + 'px';
-      radioContainer.style.top = (e.clientY - offsetY) + 'px';
-      radioContainer.style.right = 'auto';
-      radioContainer.style.bottom = 'auto';
-    });
 
-    document.addEventListener('mouseup', () => {
-      dragging = false;
+      const container = radioContainer;
+      const width = container.offsetWidth;
+      const height = container.offsetHeight;
+      const maxX = window.innerWidth - width;
+      const maxY = window.innerHeight - height;
+
+      let newX = e.clientX - offsetX;
+      let newY = e.clientY - offsetY;
+
+      newX = Math.max(0, Math.min(newX, maxX));
+      newY = Math.max(0, Math.min(newY, maxY));
+
+      container.style.left = newX + 'px';
+      container.style.top = newY + 'px';
+      container.style.right = 'auto';
+      container.style.bottom = 'auto';
     });
   </script>
 </body>
