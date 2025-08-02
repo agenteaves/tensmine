@@ -27,61 +27,41 @@
     }
 
     .radio-buttons {
-      position: absolute;
-      top: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1000;
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 0.8rem 1.2rem;
-      border-radius: 12px;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
+      margin-top: 1rem;
+      text-align: center;
+      z-index: 10;
     }
 
     .radio-buttons label {
+      margin: 0 10px;
       cursor: pointer;
     }
 
-    .main-wrapper {
+    .container {
       display: flex;
+      flex-direction: row;
       justify-content: center;
-      padding: 4rem 1rem;
-      position: relative;
-    }
-
-    iframe.game-frame {
-      width: 90vw;
-      height: 80vh;
-      max-width: 1024px;
-      max-height: 768px;
-      border: none;
-      border-radius: 10px;
-      background-color: #000;
-      z-index: 1;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      padding: 2rem 1rem;
+      gap: 2rem;
     }
 
     .left-image-container {
-      position: fixed;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 1000;
+      max-width: 300px;
+      text-align: center;
     }
 
     .left-image-container img {
-      max-height: 80vh;
+      width: 100%;
+      height: auto;
       border-radius: 10px;
-      display: block;
       box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
     }
 
     .left-image-button {
-      position: absolute;
-      bottom: 100px;
-      left: 50%;
-      transform: translateX(-50%);
+      margin-top: -40px;
+      margin-bottom: 20px;
       padding: 10px 20px;
       background-color: #007BFF;
       color: white;
@@ -89,13 +69,28 @@
       border-radius: 6px;
       cursor: pointer;
       font-size: 1rem;
-      user-select: none;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
       transition: background-color 0.3s ease;
+      position: relative;
+      z-index: 2;
     }
 
     .left-image-button:hover {
       background-color: #0056b3;
+    }
+
+    .game-wrapper {
+      flex: 1;
+      min-width: 300px;
+      max-width: 1024px;
+    }
+
+    iframe.game-frame {
+      width: 100%;
+      height: 80vh;
+      border: none;
+      border-radius: 10px;
+      background-color: #000;
     }
 
     footer {
@@ -105,6 +100,7 @@
       font-size: 0.9rem;
       color: #aaa;
       border-top: 2px solid #333;
+      margin-top: 2rem;
     }
 
     @media screen and (max-width: 768px) {
@@ -120,27 +116,29 @@
 </head>
 <body>
 
-  <div class="left-image-container" aria-label="Indoor Hydroponic Garden System">
-    <img src="https://i.imgur.com/xasewYq.png" alt="Indoor Hydroponic Garden System" loading="lazy" />
-    <button class="left-image-button" onclick="window.open('https://miriele.com/indoor-hydroponic-garden-system/', '_blank')">
-      SHOP
-    </button>
-  </div>
-
   <header>
     Jungle Adventuraddict
   </header>
 
   <div class="radio-buttons">
-    <label><input type="radio" name="radio" onclick="playStream('https://streaming.live365.com/a86253')">Classic Hits 109</label>
-    <label><input type="radio" name="radio" onclick="playStream('https://streaming.live365.com/a40193')">The Funk Station</label>
-    <label><input type="radio" name="radio" onclick="playStream('https://streaming.live365.com/a81688')">Wiggle Radio</label>
-    <label><input type="radio" name="radio" onclick="stopStream()">Stop</label>
+    <label><input type="radio" name="radio" onclick="playStream('https://streaming.live365.com/a86253')"> Classic Hits 109</label>
+    <label><input type="radio" name="radio" onclick="playStream('https://streaming.live365.com/a40193')"> The Funk Station</label>
+    <label><input type="radio" name="radio" onclick="playStream('https://streaming.live365.com/a81688')"> Wiggle Radio</label>
+    <label><input type="radio" name="radio" onclick="stopStream()"> Stop</label>
   </div>
 
-  <main class="main-wrapper">
-    <iframe class="game-frame" src="https://html-classic.itch.zone/html/9505093/index.html?v=1713549271" allowfullscreen></iframe>
-  </main>
+  <div class="container">
+    <div class="left-image-container">
+      <img src="https://i.imgur.com/xasewYq.png" alt="Indoor Hydroponic Garden System" loading="lazy" />
+      <button class="left-image-button" onclick="window.open('https://miriele.com/indoor-hydroponic-garden-system/', '_blank')">
+        SHOP
+      </button>
+    </div>
+
+    <div class="game-wrapper">
+      <iframe class="game-frame" src="https://html-classic.itch.zone/html/9505093/index.html?v=1713549271" allowfullscreen></iframe>
+    </div>
+  </div>
 
   <footer>
     &copy; 2025 Miriele. All rights reserved.
@@ -165,5 +163,6 @@
       }
     }
   </script>
+
 </body>
 </html>
