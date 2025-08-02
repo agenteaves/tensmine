@@ -9,33 +9,32 @@
   <meta name="author" content="Jungle Adventuraddict">
   <style>
     html, body {
-      margin: 0; padding: 0; height: 100%;
+      margin: 0;
+      padding: 0;
+      height: 100%;
       font-family: Arial, sans-serif;
       background: url('https://www.wallpapergap.com/cdn/24/77/dark-green-jungle-wallpaper-3840x2160.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
-      overflow-x: hidden;
+      overflow: hidden;
     }
-    body {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
+
     header, footer {
       background-color: rgba(0, 0, 0, 0.7);
       text-align: center;
       padding: 0.5rem 1rem;
       z-index: 1;
     }
+
     .content {
-      flex: 1;
+      height: calc(100vh - 140px); /* Adjust height to leave room for header/footer */
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      padding-top: 0.5rem;
+      align-items: center;
       position: relative;
       z-index: 0;
     }
+
     iframe.game-frame {
       width: 90vw;
       height: 80vh;
@@ -44,8 +43,8 @@
       border: none;
       border-radius: 10px;
       background-color: #000;
-      margin-top: -1rem;
     }
+
     .back-btn, .shop-btn {
       position: absolute;
       top: 1rem;
@@ -59,55 +58,56 @@
       z-index: 10;
       user-select: none;
     }
+
     .back-btn { left: 1rem; }
     .shop-btn { right: 1rem; }
-    .back-btn:hover, .shop-btn:hover { background-color: #0056b3; }
 
-    /* Movable radio container */
+    .back-btn:hover, .shop-btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Movable radio */
     #radio-container {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 320px;
+      bottom: 10px;
+      left: 10px;
       z-index: 9999;
-      cursor: move;
+      cursor: grab;
       user-select: none;
-    }
-
-    #radio-header {
-      background: #000;
-      color: white;
-      padding: 10px;
-      border-radius: 12px;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    #radio-toggle-btn {
-      font-size: 1.2rem;
-      padding-left: 10px;
     }
 
     #radio-iframe-wrapper {
       background: #000;
-      border-radius: 12px;
+      border-radius: 12px 12px 0 0;
       overflow: hidden;
-      margin-bottom: 8px;
       display: none;
+      margin-bottom: 4px;
     }
 
     #radio-iframe {
-      width: 100%;
+      width: 300px;
       height: 200px;
       border: none;
     }
 
+    #radio-toggle {
+      background: #000;
+      color: white;
+      padding: 10px;
+      border-radius: 0 0 12px 12px;
+      font-weight: bold;
+      text-align: center;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 300px;
+    }
+
     #radio-container.expanded #radio-iframe-wrapper {
       display: block;
+    }
+
+    footer {
+      font-size: 0.8rem;
     }
   </style>
 </head>
@@ -132,8 +132,8 @@
     <p>© 2025 Jungle Adventuraddict. All rights reserved.</p>
   </footer>
 
-  <!-- Movable expandable upward radio -->
-  <div id="radio-container" class="collapsed">
+  <!-- Radio widget -->
+  <div id="radio-container">
     <div id="radio-iframe-wrapper">
       <iframe
         id="radio-iframe"
@@ -144,54 +144,47 @@
         title="104.5 KISS FM Player"
       ></iframe>
     </div>
-    <div id="radio-header">
-      <span>104.5 KISS FM</span>
-      <span id="radio-toggle-btn">▶</span>
-    </div>
+    <div id="radio-toggle">104.5 KISS FM ▶</div>
   </div>
 
   <script>
-    const container = document.getElementById('radio-container');
-    const header = document.getElementById('radio-header');
-    const toggleBtn = document.getElementById('radio-toggle-btn');
-    const iframeWrapper = document.getElementById('radio-iframe-wrapper');
-
+    const radioContainer = document.getElementById('radio-container');
+    const radioToggle = document.getElementById('radio-toggle');
     let expanded = false;
 
-    header.addEventListener('click', () => {
+    radioToggle.addEventListener('click', () => {
       expanded = !expanded;
-      container.classList.toggle('expanded', expanded);
-      toggleBtn.textContent = expanded ? '▼' : '▶';
+      radioContainer.classList.toggle('expanded', expanded);
+      radioToggle.textContent = expanded ? '104.5 KISS FM ▼' : '104.5 KISS FM ▶';
     });
 
-    // Dragging
+    // Drag logic
     let isDragging = false;
-    let offsetX = 0;
-    let offsetY = 0;
+    let offsetX, offsetY;
 
-    header.addEventListener('mousedown', (e) => {
+    radioToggle.addEventListener('mousedown', (e) => {
       isDragging = true;
-      const rect = container.getBoundingClientRect();
+      const rect = radioContainer.getBoundingClientRect();
       offsetX = e.clientX - rect.left;
       offsetY = e.clientY - rect.top;
-      container.style.transition = 'none';
+      radioContainer.style.transition = 'none';
+      e.preventDefault();
     });
 
     document.addEventListener('mouseup', () => {
       isDragging = false;
-      container.style.transition = '';
+      radioContainer.style.transition = '';
     });
 
     document.addEventListener('mousemove', (e) => {
       if (!isDragging) return;
       let x = e.clientX - offsetX;
       let y = e.clientY - offsetY;
-      container.style.left = x + 'px';
-      container.style.top = y + 'px';
-      container.style.right = 'auto';
-      container.style.bottom = 'auto';
+      radioContainer.style.left = x + 'px';
+      radioContainer.style.top = y + 'px';
+      radioContainer.style.right = 'auto';
+      radioContainer.style.bottom = 'auto';
     });
   </script>
 </body>
 </html>
-
