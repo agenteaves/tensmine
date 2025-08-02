@@ -2,37 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Battleship War Multiplayer | Jungle Adventuraddict</title>
+  <meta name="description" content="Play Battleship War Multiplayer online for free on Jungle Adventuraddict. Sink ships and challenge friends!">
+  <meta name="keywords" content="Battleship, multiplayer game, Jungle Adventuraddict, online games, free browser game, GamePix">
+  <meta name="author" content="Jungle Adventuraddict">
+  <link rel="stylesheet" href="style.css" />
   <style>
     html, body {
-      margin: 0; padding: 0; height: 100%;
+      margin: 0;
+      padding: 0;
+      height: 100%;
       font-family: Arial, sans-serif;
       background: url('https://www.wallpapergap.com/cdn/24/77/dark-green-jungle-wallpaper-3840x2160.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
-      overflow: hidden;
     }
+
     body {
       display: flex;
       flex-direction: column;
       position: relative;
     }
+
     header, footer {
-      background-color: rgba(0,0,0,0.7);
+      background-color: rgba(0, 0, 0, 0.7);
       text-align: center;
       padding: 0.5rem 1rem;
-      z-index: 1;
     }
+
     .content {
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding: 0.5rem;
-      padding-bottom: 150px;
-      position: relative;
+      padding-top: 0.5rem;
     }
+
     iframe.game-frame {
       width: 90vw;
       height: 80vh;
@@ -43,6 +49,7 @@
       background-color: #000;
       margin-top: -1rem;
     }
+
     .back-btn, .shop-btn {
       position: absolute;
       top: 1rem;
@@ -54,153 +61,127 @@
       font-size: 0.9rem;
       transition: background-color 0.3s ease;
       z-index: 10;
-      user-select: none;
     }
-    .back-btn { left: 1rem; }
-    .shop-btn { right: 1rem; }
-    .back-btn:hover, .shop-btn:hover { background-color: #0056b3; }
+
+    .back-btn {
+      left: 1rem;
+    }
+
+    .shop-btn {
+      right: 1rem;
+    }
+
+    .back-btn:hover, .shop-btn:hover {
+      background-color: #0056b3;
+    }
 
     .radio-widget {
       position: fixed;
-      right: 20px;
-      width: 240px;
-      user-select: none;
-      cursor: grab;
-      font-family: Arial, sans-serif;
+      width: 200px;
+      background-color: #000;
+      color: #fff;
+      border-radius: 8px;
+      z-index: 9999;
+      cursor: move;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      overflow: visible;
     }
+
     .radio-header {
-      background: #000;
-      color: white;
-      padding: 10px;
-      border-radius: 12px;
-      font-weight: bold;
+      padding: 8px;
+      background-color: #111;
+      font-size: 0.8rem;
       text-align: center;
-      font-size: 0.85rem;
-      user-select: none;
-      cursor: pointer;
-      position: relative;
-      z-index: 2;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
     }
+
     .radio-iframe-wrapper {
-      position: absolute;
-      bottom: 100%;
-      left: 0;
-      width: 100%;
-      height: 210px;
-      background: #000;
-      border-radius: 12px 12px 0 0;
-      overflow: hidden;
       display: none;
-      z-index: 1;
+      transition: max-height 0.3s ease;
     }
+
+    .radio-widget.expanded .radio-iframe-wrapper {
+      display: block;
+    }
+
     .radio-iframe-wrapper iframe {
       width: 100%;
       height: 200px;
       border: none;
-      border-radius: 8px;
-      background: black;
-      pointer-events: auto;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
     }
   </style>
 </head>
 <body>
-  <a href="index.html" class="back-btn" draggable="false">← Back to Home</a>
-  <a href="https://miriele.com" target="_blank" class="shop-btn" draggable="false">Shop</a>
+  <a href="index.html" class="back-btn">← Back to Home</a>
+  <a href="https://miriele.com" target="_blank" class="shop-btn">Shop</a>
 
-  <header><h1>Battleship War Multiplayer</h1></header>
+  <header>
+    <h1>Battleship War Multiplayer</h1>
+  </header>
 
   <div class="content">
     <iframe 
       class="game-frame"
       src="https://play.gamepix.com/battleship-war-multiplayer/embed?sid=1"
       allowfullscreen
-      scrolling="no"
-      draggable="false">
+      scrolling="no">
     </iframe>
   </div>
 
-  <footer><p>© 2025 Jungle Adventuraddict. All rights reserved.</p></footer>
+  <footer>
+    <p>© 2025 Jungle Adventuraddict. All rights reserved.</p>
+  </footer>
 
-  <!-- Independent Radio Widgets -->
-  <div id="radio1" class="radio-widget" style="bottom: 100px;">
+  <!-- Radio 1 -->
+  <div class="radio-widget" id="radio1" style="top: 100px; right: 20px;">
+    <div class="radio-header">104.5 KISS FM</div>
     <div class="radio-iframe-wrapper">
-      <iframe
-        src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true"
-        allow="autoplay"
-        title="104.5 KISS FM"
-      ></iframe>
+      <iframe allow="autoplay" src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true"></iframe>
     </div>
-    <div class="radio-header">104.5 KISS FM ▶</div>
   </div>
 
-  <div id="radio2" class="radio-widget" style="bottom: 20px;">
+  <!-- Radio 2 -->
+  <div class="radio-widget" id="radio2" style="top: 340px; right: 20px;">
+    <div class="radio-header">Kicker 95.1</div>
     <div class="radio-iframe-wrapper">
-      <iframe
-        src="https://www.iheart.com/live/kicker-951-2205/?embed=true"
-        allow="autoplay"
-        title="Kicker 95.1"
-      ></iframe>
+      <iframe allow="autoplay" src="https://www.iheart.com/live/kicker-951-2205/?embed=true"></iframe>
     </div>
-    <div class="radio-header">Kicker 95.1 ▶</div>
   </div>
 
   <script>
-    function setupRadio(id) {
-      const widget = document.getElementById(id);
+    const radios = document.querySelectorAll('.radio-widget');
+    radios.forEach(widget => {
       const header = widget.querySelector('.radio-header');
-      const wrapper = widget.querySelector('.radio-iframe-wrapper');
-
-      let expanded = false;
-
       header.addEventListener('click', () => {
-        expanded = !expanded;
-        wrapper.style.display = expanded ? 'block' : 'none';
-        header.textContent = header.textContent.replace(expanded ? '▶' : '▼', expanded ? '▼' : '▶');
+        widget.classList.toggle('expanded');
       });
 
-      // Dragging logic
-      let dragging = false, offsetX = 0, offsetY = 0;
-
-      header.addEventListener('mousedown', e => {
-        dragging = true;
-        const rect = widget.getBoundingClientRect();
-        offsetX = e.clientX - rect.left;
-        offsetY = e.clientY - rect.top;
-        widget.style.cursor = 'grabbing';
-        e.preventDefault();
+      // Make draggable within window bounds
+      let offsetX, offsetY, isDragging = false;
+      header.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - widget.offsetLeft;
+        offsetY = e.clientY - widget.offsetTop;
+        document.body.style.userSelect = 'none';
       });
-
-      document.addEventListener('mouseup', () => {
-        dragging = false;
-        widget.style.cursor = 'grab';
-      });
-
-      document.addEventListener('mousemove', e => {
-        if (!dragging) return;
-
-        const width = widget.offsetWidth;
-        const height = widget.offsetHeight;
-        const playerHeight = wrapper.style.display === 'block' ? 210 : 0;
-
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
         let newX = e.clientX - offsetX;
         let newY = e.clientY - offsetY;
-
-        const maxX = window.innerWidth - width;
-        const maxY = window.innerHeight - height - playerHeight;
-
-        newX = Math.max(0, Math.min(newX, maxX));
-        newY = Math.max(playerHeight, Math.min(newY, maxY));
-
+        newX = Math.max(0, Math.min(window.innerWidth - widget.offsetWidth, newX));
+        newY = Math.max(0, Math.min(window.innerHeight - widget.offsetHeight, newY));
         widget.style.left = newX + 'px';
         widget.style.top = newY + 'px';
         widget.style.right = 'auto';
-        widget.style.bottom = 'auto';
       });
-    }
-
-    // Setup both radios independently
-    setupRadio('radio1');
-    setupRadio('radio2');
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+        document.body.style.userSelect = '';
+      });
+    });
   </script>
 </body>
 </html>
