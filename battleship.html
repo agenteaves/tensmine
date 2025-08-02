@@ -64,86 +64,38 @@
     .shop-btn { right: 1rem; }
     .back-btn:hover, .shop-btn:hover { background-color: #0056b3; }
 
-    /* Floating Black Radio Widget */
-    #radio-widget {
+    /* Movable iframe container for iHeart Radio */
+    #radio-container {
       position: fixed;
+      top: 150px;
       right: 20px;
-      bottom: 120px;
-      width: 200px;
-      height: 55px;
-      background-color: #000;
-      border-radius: 30px;
+      width: 320px;
+      height: 220px; /* 200 iframe height + some padding */
+      background: #000;
+      border-radius: 14px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.7);
       cursor: move;
       z-index: 9999;
+      overflow: hidden;
       user-select: none;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
-      transition: height 0.35s ease, width 0.35s ease, border-radius 0.35s ease;
-      font-weight: 700;
+      padding: 10px;
+    }
+    #radio-header {
       color: white;
+      font-weight: 700;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    #radio-widget.expanded {
-      height: 310px;
-      border-radius: 20px;
-      padding: 12px 16px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.9);
-      cursor: move;
-    }
-    #radio-toggle {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 0 20px;
-      height: 55px;
       font-size: 1.1rem;
-      letter-spacing: 0.04em;
-      user-select: none;
-    }
-    #radio-toggle svg {
-      width: 28px;
-      height: 28px;
-      fill: white;
-      flex-shrink: 0;
-      user-select: none;
-    }
-    #radio-channel-name {
-      flex-grow: 1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      margin-bottom: 6px;
       user-select: text;
-    }
-    #radio-content {
-      margin-top: 18px;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    }
-    #radio-widget.expanded #radio-content {
-      display: flex;
-    }
-    #radio-content p {
-      margin: 0 0 14px 0;
-      font-size: 1rem;
-      font-weight: 600;
       text-align: center;
-      user-select: text;
+      cursor: default;
     }
-    #radio-content audio {
-      width: 100%;
-      border-radius: 14px;
-      outline: none;
-      background-color: #111;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.7);
-    }
-    #radio-toggle:hover {
-      background-color: rgba(255 255 255 / 0.12);
-      border-radius: 30px;
-      transition: background-color 0.3s ease;
+    #radio-iframe {
+      flex-grow: 1;
+      border: none;
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -168,67 +120,37 @@
     <p>© 2025 Jungle Adventuraddict. All rights reserved.</p>
   </footer>
 
-  <!-- Floating Black Radio Widget for 104.5 KISS FM -->
-  <div id="radio-widget" title="Drag to move, click to toggle 104.5 KISS FM Player" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle radio player">
-    <div id="radio-toggle" aria-hidden="true">
-      <!-- Speaker Icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-3.57-4.4v8.8a4.5 4.5 0 0 0 3.57-4.4zm2.5 0a7 7 0 0 0-5.4-6.76v2.06a5 5 0 0 1 0 8.4v2.06a7 7 0 0 0 5.4-6.76z"/>
-      </svg>
-      <span id="radio-channel-name">104.5 KISS FM</span>
-    </div>
-    <div id="radio-content" aria-hidden="true">
-      <p>Now Playing: 104.5 KISS FM</p>
-      <audio controls preload="none" aria-label="104.5 KISS FM Radio Player">
-        <!-- Replace with your actual stream URL -->
-        <source src="https://playerservices.streamtheworld.com/api/livestream-redirect/KISSFM_SC" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
-    </div>
+  <!-- Movable iHeart Radio iframe -->
+  <div id="radio-container" title="Drag to move 104.5 KISS FM Player" tabindex="0" aria-label="Movable radio player 104.5 KISS FM">
+    <div id="radio-header">104.5 KISS FM</div>
+    <iframe
+      id="radio-iframe"
+      src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true"
+      width="100%"
+      height="200"
+      allow="autoplay"
+      frameborder="0"
+      scrolling="no"
+      allowfullscreen
+      title="104.5 KISS FM Radio Player"
+    ></iframe>
   </div>
 
   <script>
-    const radioWidget = document.getElementById('radio-widget');
-    const radioToggle = document.getElementById('radio-toggle');
-    const radioContent = document.getElementById('radio-content');
+    const radioContainer = document.getElementById('radio-container');
 
-    let isExpanded = false;
-
-    function toggleRadio(expand) {
-      isExpanded = typeof expand === 'boolean' ? expand : !isExpanded;
-      radioWidget.classList.toggle('expanded', isExpanded);
-      radioWidget.setAttribute('aria-expanded', isExpanded);
-      radioContent.setAttribute('aria-hidden', !isExpanded);
-    }
-
-    radioToggle.addEventListener('click', (e) => {
-      // Only toggle if click is NOT on audio controls (avoid toggle when using audio)
-      if(e.target.tagName.toLowerCase() !== 'audio' && !e.target.closest('audio')) {
-        toggleRadio();
-      }
-    });
-
-    // Keyboard accessibility: toggle on Enter or Space
-    radioWidget.addEventListener('keydown', e => {
-      if(e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleRadio();
-      }
-    });
-
-    // Draggable anywhere on page
     let isDragging = false;
     let dragOffsetX = 0;
     let dragOffsetY = 0;
 
-    radioWidget.addEventListener('mousedown', (e) => {
-      // Only drag if clicking outside audio controls
-      if(e.target.tagName.toLowerCase() !== 'audio' && !e.target.closest('audio')) {
+    radioContainer.addEventListener('mousedown', (e) => {
+      // Allow drag only if clicked outside iframe (header or container background)
+      if(e.target === radioContainer || e.target === document.getElementById('radio-header')) {
         isDragging = true;
-        const rect = radioWidget.getBoundingClientRect();
+        const rect = radioContainer.getBoundingClientRect();
         dragOffsetX = e.clientX - rect.left;
         dragOffsetY = e.clientY - rect.top;
-        radioWidget.style.transition = 'none'; // disable transition during drag
+        radioContainer.style.transition = 'none'; // disable transitions while dragging
         document.body.style.userSelect = 'none';
       }
     });
@@ -236,7 +158,7 @@
     window.addEventListener('mouseup', () => {
       if(isDragging) {
         isDragging = false;
-        radioWidget.style.transition = ''; // re-enable transitions
+        radioContainer.style.transition = '';
         document.body.style.userSelect = '';
       }
     });
@@ -246,21 +168,21 @@
       let newLeft = e.clientX - dragOffsetX;
       let newTop = e.clientY - dragOffsetY;
 
-      // Keep widget inside viewport horizontally
-      const maxLeft = window.innerWidth - radioWidget.offsetWidth;
+      // Keep inside viewport horizontally
+      const maxLeft = window.innerWidth - radioContainer.offsetWidth;
       if(newLeft < 0) newLeft = 0;
       if(newLeft > maxLeft) newLeft = maxLeft;
 
-      // Keep widget inside viewport vertically
-      const maxTop = window.innerHeight - radioWidget.offsetHeight;
+      // Keep inside viewport vertically
+      const maxTop = window.innerHeight - radioContainer.offsetHeight;
       if(newTop < 0) newTop = 0;
       if(newTop > maxTop) newTop = maxTop;
 
-      radioWidget.style.left = `${newLeft}px`;
-      radioWidget.style.top = `${newTop}px`;
-      radioWidget.style.right = 'auto';
-      radioWidget.style.bottom = 'auto';
-      radioWidget.style.position = 'fixed';
+      radioContainer.style.left = newLeft + 'px';
+      radioContainer.style.top = newTop + 'px';
+      radioContainer.style.right = 'auto';
+      radioContainer.style.bottom = 'auto';
+      radioContainer.style.position = 'fixed';
     });
   </script>
 </body>
