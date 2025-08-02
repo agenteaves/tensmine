@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -64,17 +64,17 @@
     .shop-btn { right: 1rem; }
     .back-btn:hover, .shop-btn:hover { background-color: #0056b3; }
 
-    /* Remodeled Floating Radio Widget */
+    /* Floating Black Radio Widget */
     #radio-widget {
       position: fixed;
-      right: 12px;
+      right: 20px;
       bottom: 120px;
       width: 200px;
       height: 55px;
-      background: linear-gradient(135deg, #e60026, #b3001b);
+      background-color: #000;
       border-radius: 30px;
-      box-shadow: 0 5px 15px rgba(230, 0, 38, 0.6);
-      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.7);
+      cursor: move;
       z-index: 9999;
       user-select: none;
       display: flex;
@@ -88,9 +88,9 @@
     #radio-widget.expanded {
       height: 310px;
       border-radius: 20px;
-      background: linear-gradient(135deg, #b3001b, #800014);
       padding: 12px 16px;
-      box-shadow: 0 8px 25px rgba(179, 0, 27, 0.8);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.9);
+      cursor: move;
     }
     #radio-toggle {
       display: flex;
@@ -100,12 +100,14 @@
       height: 55px;
       font-size: 1.1rem;
       letter-spacing: 0.04em;
+      user-select: none;
     }
     #radio-toggle svg {
       width: 28px;
       height: 28px;
       fill: white;
       flex-shrink: 0;
+      user-select: none;
     }
     #radio-channel-name {
       flex-grow: 1;
@@ -129,16 +131,17 @@
       font-size: 1rem;
       font-weight: 600;
       text-align: center;
+      user-select: text;
     }
     #radio-content audio {
       width: 100%;
       border-radius: 14px;
       outline: none;
-      background-color: #5a000f;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+      background-color: #111;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.7);
     }
     #radio-toggle:hover {
-      background-color: rgba(255 255 255 / 0.15);
+      background-color: rgba(255 255 255 / 0.12);
       border-radius: 30px;
       transition: background-color 0.3s ease;
     }
@@ -165,10 +168,10 @@
     <p>© 2025 Jungle Adventuraddict. All rights reserved.</p>
   </footer>
 
-  <!-- Remodeled Floating Radio Widget for 104.5 KISS FM -->
-  <div id="radio-widget" title="Toggle 104.5 KISS FM Radio Player" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle radio player">
+  <!-- Floating Black Radio Widget for 104.5 KISS FM -->
+  <div id="radio-widget" title="Drag to move, click to toggle 104.5 KISS FM Player" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle radio player">
     <div id="radio-toggle" aria-hidden="true">
-      <!-- Radio Speaker Icon -->
+      <!-- Speaker Icon -->
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-3.57-4.4v8.8a4.5 4.5 0 0 0 3.57-4.4zm2.5 0a7 7 0 0 0-5.4-6.76v2.06a5 5 0 0 1 0 8.4v2.06a7 7 0 0 0 5.4-6.76z"/>
       </svg>
@@ -198,7 +201,12 @@
       radioContent.setAttribute('aria-hidden', !isExpanded);
     }
 
-    radioToggle.addEventListener('click', () => toggleRadio());
+    radioToggle.addEventListener('click', (e) => {
+      // Only toggle if click is NOT on audio controls (avoid toggle when using audio)
+      if(e.target.tagName.toLowerCase() !== 'audio' && !e.target.closest('audio')) {
+        toggleRadio();
+      }
+    });
 
     // Keyboard accessibility: toggle on Enter or Space
     radioWidget.addEventListener('keydown', e => {
@@ -208,33 +216,51 @@
       }
     });
 
-    // Draggable vertically along right edge
+    // Draggable anywhere on page
     let isDragging = false;
-    let startY, startBottom;
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
 
     radioWidget.addEventListener('mousedown', (e) => {
-      if(e.target === radioToggle || e.target === radioWidget) {
+      // Only drag if clicking outside audio controls
+      if(e.target.tagName.toLowerCase() !== 'audio' && !e.target.closest('audio')) {
         isDragging = true;
-        startY = e.clientY;
-        startBottom = parseInt(window.getComputedStyle(radioWidget).bottom, 10);
+        const rect = radioWidget.getBoundingClientRect();
+        dragOffsetX = e.clientX - rect.left;
+        dragOffsetY = e.clientY - rect.top;
+        radioWidget.style.transition = 'none'; // disable transition during drag
         document.body.style.userSelect = 'none';
       }
     });
 
     window.addEventListener('mouseup', () => {
-      isDragging = false;
-      document.body.style.userSelect = '';
+      if(isDragging) {
+        isDragging = false;
+        radioWidget.style.transition = ''; // re-enable transitions
+        document.body.style.userSelect = '';
+      }
     });
 
     window.addEventListener('mousemove', (e) => {
       if(!isDragging) return;
-      const dy = startY - e.clientY;
-      let newBottom = startBottom + dy;
-      const minBottom = 20;
-      const maxBottom = window.innerHeight - radioWidget.offsetHeight - 20;
-      if(newBottom < minBottom) newBottom = minBottom;
-      if(newBottom > maxBottom) newBottom = maxBottom;
-      radioWidget.style.bottom = `${newBottom}px`;
+      let newLeft = e.clientX - dragOffsetX;
+      let newTop = e.clientY - dragOffsetY;
+
+      // Keep widget inside viewport horizontally
+      const maxLeft = window.innerWidth - radioWidget.offsetWidth;
+      if(newLeft < 0) newLeft = 0;
+      if(newLeft > maxLeft) newLeft = maxLeft;
+
+      // Keep widget inside viewport vertically
+      const maxTop = window.innerHeight - radioWidget.offsetHeight;
+      if(newTop < 0) newTop = 0;
+      if(newTop > maxTop) newTop = maxTop;
+
+      radioWidget.style.left = `${newLeft}px`;
+      radioWidget.style.top = `${newTop}px`;
+      radioWidget.style.right = 'auto';
+      radioWidget.style.bottom = 'auto';
+      radioWidget.style.position = 'fixed';
     });
   </script>
 </body>
