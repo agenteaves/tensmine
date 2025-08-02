@@ -17,6 +17,7 @@
       background: url('https://www.wallpapergap.com/cdn/24/77/dark-green-jungle-wallpaper-3840x2160.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
+      overflow-x: hidden;
     }
 
     body {
@@ -48,6 +49,7 @@
       border-radius: 10px;
       background-color: #000;
       margin-top: -1rem;
+      z-index: 0;
     }
 
     .back-btn, .shop-btn {
@@ -60,7 +62,7 @@
       border-radius: 6px;
       font-size: 0.9rem;
       transition: background-color 0.3s ease;
-      z-index: 10;
+      z-index: 100;
     }
 
     .back-btn {
@@ -78,39 +80,32 @@
     .radio-widget {
       position: fixed;
       width: 200px;
-      background-color: #000;
-      color: #fff;
-      border-radius: 8px;
-      z-index: 9999;
+      background-color: black;
+      color: white;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      z-index: 999;
       cursor: move;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      overflow: visible;
+      padding: 0;
     }
 
     .radio-header {
-      padding: 8px;
       background-color: #111;
-      font-size: 0.8rem;
-      text-align: center;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
+      user-select: none;
     }
 
     .radio-iframe-wrapper {
       display: none;
-      transition: max-height 0.3s ease;
-    }
-
-    .radio-widget.expanded .radio-iframe-wrapper {
-      display: block;
+      width: 100%;
+      overflow: hidden;
     }
 
     .radio-iframe-wrapper iframe {
       width: 100%;
       height: 200px;
       border: none;
-      border-bottom-left-radius: 8px;
-      border-bottom-right-radius: 8px;
     }
   </style>
 </head>
@@ -131,57 +126,66 @@
     </iframe>
   </div>
 
-  <footer>
-    <p>© 2025 Jungle Adventuraddict. All rights reserved.</p>
-  </footer>
-
-  <!-- Radio 1 -->
   <div class="radio-widget" id="radio1" style="top: 100px; right: 20px;">
-    <div class="radio-header">104.5 KISS FM</div>
+    <div class="radio-header" onclick="toggleRadio('radio1')">🎵 104.5 KISS FM</div>
     <div class="radio-iframe-wrapper">
       <iframe allow="autoplay" src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true"></iframe>
     </div>
   </div>
 
-  <!-- Radio 2 -->
-  <div class="radio-widget" id="radio2" style="top: 340px; right: 20px;">
-    <div class="radio-header">Kicker 95.1</div>
+  <div class="radio-widget" id="radio2" style="top: 310px; right: 20px;">
+    <div class="radio-header" onclick="toggleRadio('radio2')">🎵 Kicker 95.1</div>
     <div class="radio-iframe-wrapper">
       <iframe allow="autoplay" src="https://www.iheart.com/live/kicker-951-2205/?embed=true"></iframe>
     </div>
   </div>
 
-  <script>
-    const radios = document.querySelectorAll('.radio-widget');
-    radios.forEach(widget => {
-      const header = widget.querySelector('.radio-header');
-      header.addEventListener('click', () => {
-        widget.classList.toggle('expanded');
-      });
+  <footer>
+    <p>© 2025 Jungle Adventuraddict. All rights reserved.</p>
+  </footer>
 
-      // Make draggable within window bounds
-      let offsetX, offsetY, isDragging = false;
+  <script>
+    function toggleRadio(id) {
+      const widget = document.getElementById(id);
+      const iframeWrapper = widget.querySelector('.radio-iframe-wrapper');
+      iframeWrapper.style.display = iframeWrapper.style.display === 'none' ? 'block' : 'none';
+    }
+
+    document.querySelectorAll('.radio-widget').forEach(widget => {
+      const header = widget.querySelector('.radio-header');
+      let offsetX, offsetY;
+
       header.addEventListener('mousedown', (e) => {
-        isDragging = true;
         offsetX = e.clientX - widget.offsetLeft;
         offsetY = e.clientY - widget.offsetTop;
-        document.body.style.userSelect = 'none';
-      });
-      document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        let newX = e.clientX - offsetX;
-        let newY = e.clientY - offsetY;
-        newX = Math.max(0, Math.min(window.innerWidth - widget.offsetWidth, newX));
-        newY = Math.max(0, Math.min(window.innerHeight - widget.offsetHeight, newY));
-        widget.style.left = newX + 'px';
-        widget.style.top = newY + 'px';
-        widget.style.right = 'auto';
-      });
-      document.addEventListener('mouseup', () => {
-        isDragging = false;
-        document.body.style.userSelect = '';
+
+        function mouseMoveHandler(e) {
+          let newX = e.clientX - offsetX;
+          let newY = e.clientY - offsetY;
+
+          // Keep within bounds
+          newX = Math.max(0, Math.min(window.innerWidth - widget.offsetWidth, newX));
+          newY = Math.max(0, Math.min(window.innerHeight - widget.offsetHeight, newY));
+
+          widget.style.left = newX + 'px';
+          widget.style.top = newY + 'px';
+          widget.style.right = 'auto';
+        }
+
+        function mouseUpHandler() {
+          document.removeEventListener('mousemove', mouseMoveHandler);
+          document.removeEventListener('mouseup', mouseUpHandler);
+        }
+
+        document.addEventListener('mousemove', mouseMoveHandler);
+        document.addEventListener('mouseup', mouseUpHandler);
       });
     });
+
+    // Minimize both on load
+    window.onload = () => {
+      document.querySelectorAll('.radio-iframe-wrapper').forEach(iframe => iframe.style.display = 'none');
+    };
   </script>
 </body>
 </html>
