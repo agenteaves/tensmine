@@ -31,7 +31,7 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding-top: 2rem; /* increased padding to move game down */
+      padding-top: 2rem; /* moved game down */
       position: relative;
       z-index: 1;
     }
@@ -43,7 +43,7 @@
       border: none;
       border-radius: 10px;
       background-color: #000;
-      margin-top: 0; /* removed negative margin */
+      margin-top: 0;
     }
     .back-btn, .shop-btn {
       position: absolute;
@@ -89,7 +89,7 @@
       height: 180px;
       border: none;
       position: absolute;
-      bottom: 100%; /* expand upward */
+      bottom: 100%;
       left: 0;
       z-index: -1;
       border-radius: 0 0 5px 5px;
@@ -108,37 +108,54 @@
       }
     }
 
-    /* Updated left image styling */
-    .left-image-link {
+    /* Left image container and button */
+    .left-image-container {
       position: fixed;
       left: 10px;
       top: 50%;
       transform: translateY(-50%);
       z-index: 10000;
-      max-height: 80vh; /* match game iframe height */
+      max-height: 80vh;
       width: auto;
-      cursor: pointer;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      transition: transform 0.3s ease;
-      display: block;
+      overflow: visible;
     }
-    .left-image-link img {
+    .left-image-container img {
       max-height: 80vh;
       width: auto;
       border-radius: 10px;
       display: block;
     }
-    .left-image-link:hover {
-      transform: translateY(-50%) scale(1.05);
+    .left-image-button {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 8px 16px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      user-select: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+      transition: background-color 0.3s ease;
+    }
+    .left-image-button:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
 <body>
 
-  <a href="https://miriele.com/indoor-hydroponic-garden-system/" target="_blank" rel="noopener noreferrer" class="left-image-link" aria-label="Indoor Hydroponic Garden System">
+  <div class="left-image-container" aria-label="Indoor Hydroponic Garden System">
     <img src="https://i.imgur.com/kaBR0rA.png" alt="Indoor Hydroponic Garden System" loading="lazy" />
-  </a>
+    <button class="left-image-button" onclick="window.open('https://miriele.com/indoor-hydroponic-garden-system/', '_blank', 'noopener')">
+      Learn More
+    </button>
+  </div>
 
   <a href="index.html" class="back-btn" aria-label="Back to homepage">← Back to Home</a>
   <a href="https://miriele.com" target="_blank" class="shop-btn" aria-label="Visit Miriele Shop">Shop</a>
