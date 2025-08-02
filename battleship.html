@@ -83,7 +83,7 @@
     }
     #radio-iframe-wrapper {
       position: absolute;
-      bottom: 100%; /* put above header */
+      bottom: 100%; /* place above header */
       left: 0;
       width: 100%;
       height: 410px; /* 2 x 200px + spacing */
@@ -94,7 +94,6 @@
       z-index: 1;
       display: flex;
       flex-direction: column;
-      gap: 12px;
       padding: 8px 0;
       box-sizing: border-box;
     }
@@ -109,6 +108,10 @@
       user-select: none;
       pointer-events: auto;
       background: black;
+      margin-bottom: 12px; /* add spacing between radios */
+    }
+    #radio-iframe-wrapper iframe:last-child {
+      margin-bottom: 0; /* no margin after last iframe */
     }
   </style>
 </head>
