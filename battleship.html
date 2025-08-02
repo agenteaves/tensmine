@@ -16,7 +16,6 @@
       background: url('https://www.wallpapergap.com/cdn/24/77/dark-green-jungle-wallpaper-3840x2160.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
-      /* Consider changing overflow to auto if needed for smaller screens */
       overflow: hidden;
     }
 
@@ -146,27 +145,27 @@
   </footer>
 
   <!-- Radios -->
-  <div class="radio-widget" id="radio1" style="top: 600px;">
+  <div class="radio-widget" id="radio1" style="top: 50px;">
     <div class="radio-title">104.5 Kiss FM</div>
     <iframe class="radio-iframe" allow="autoplay" loading="lazy" src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true"></iframe>
   </div>
 
-  <div class="radio-widget" id="radio2" style="top: 800px;">
+  <div class="radio-widget" id="radio2" style="top: 260px;">
     <div class="radio-title">Kicker 95.1</div>
     <iframe class="radio-iframe" allow="autoplay" loading="lazy" src="https://www.iheart.com/live/kicker-951-2205/?embed=true"></iframe>
   </div>
 
-  <div class="radio-widget" id="radio3" style="top: 1000px;">
+  <div class="radio-widget" id="radio3" style="top: 470px;">
     <div class="radio-title">Big Dog 106</div>
     <iframe class="radio-iframe" allow="autoplay" loading="lazy" src="https://www.iheart.com/live/big-dog-106-2193/?embed=true"></iframe>
   </div>
 
-  <div class="radio-widget" id="radio4" style="top: 1200px;">
+  <div class="radio-widget" id="radio4" style="top: 680px;">
     <div class="radio-title">Power 101.5</div>
     <iframe class="radio-iframe" allow="autoplay" loading="lazy" src="https://www.iheart.com/live/power-1015-2207/?embed=true"></iframe>
   </div>
 
-  <div class="radio-widget" id="radio5" style="top: 1400px;">
+  <div class="radio-widget" id="radio5" style="top: 890px;">
     <div class="radio-title">Hit Nation</div>
     <iframe class="radio-iframe" allow="autoplay" loading="lazy" src="https://www.iheart.com/live/hit-nation-4422/?embed=true"></iframe>
   </div>
@@ -175,7 +174,6 @@
     // Dragging + expand logic
     document.querySelectorAll('.radio-widget').forEach(widget => {
       const title = widget.querySelector('.radio-title');
-      const iframe = widget.querySelector('.radio-iframe');
 
       let isDragging = false;
       let offsetX = 0;
