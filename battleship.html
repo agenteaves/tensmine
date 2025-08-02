@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF‑8" />
@@ -26,7 +26,7 @@
       flex: 1;
       display: flex; justify-content: center; align-items: flex-start;
       padding: 0.5rem;
-      padding-bottom: 150px; /* extra space to avoid ad overlay area */
+      padding-bottom: 150px; /* space for radio */
       position: relative;
     }
     iframe.game-frame {
@@ -49,23 +49,28 @@
     /* Radio widget */
     #radio-container {
       position: fixed; bottom: 20px; right: 20px;
-      width: 220px; z-index: 9999; cursor: grab; user-select: none;
-    }
-    #radio-iframe-wrapper {
-      background: #000; border-radius: 12px 12px 0 0;
-      overflow: hidden; display: none; margin-bottom: 6px;
-    }
-    #radio-iframe {
-      width: 220px; height: 200px; border: none;
+      width: 220px; z-index: 9999;
+      cursor: grab; user-select: none;
     }
     #radio-toggle {
-      background: #000; color: white; padding: 10px;
-      border-radius: 0 0 12px 12px; font-weight: bold;
-      text-align: center; font-size: 0.85rem; cursor: pointer;
-      width: 220px;
+      background: #000; color: white;
+      padding: 10px; font-weight: bold;
+      text-align: center; font-size: 0.85rem;
+      border-radius: 12px; width: 100%;
+    }
+    #radio-iframe-wrapper {
+      position: absolute; bottom: 40px; /* lift iframe above the title */
+      left: 0; width: 100%;
+      display: none; z-index: -1;
+      background: #000; border-radius: 12px 12px 0 0;
+      overflow: hidden;
     }
     #radio-container.expanded #radio-iframe-wrapper {
       display: block;
+    }
+    #radio-iframe {
+      width: 100%; height: 200px;
+      border: none;
     }
   </style>
 </head>
@@ -89,10 +94,10 @@
     <div id="radio-iframe-wrapper">
       <iframe id="radio-iframe"
         src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true"
-        allow="autoplay" frameborder="0" scrolling="no"
+        allow="autoplay" scrolling="no"
         title="104.5 KISS FM Player"></iframe>
     </div>
-    <div id="radio-toggle">104.5 KISS FM ▶</div>
+    <div id="radio-toggle">104.5 KISS FM ▲</div>
   </div>
 
   <script>
@@ -110,22 +115,19 @@
       const rect = radioContainer.getBoundingClientRect();
       offsetX = e.clientX - rect.left;
       offsetY = e.clientY - rect.top;
-      radioContainer.style.cursor = 'grabbing';
       e.preventDefault();
     });
 
     document.addEventListener('mousemove', e => {
       if (!dragging) return;
-      radioContainer.style.left = e.clientX - offsetX + 'px';
-      radioContainer.style.top = e.clientY - offsetY + 'px';
+      radioContainer.style.left = (e.clientX - offsetX) + 'px';
+      radioContainer.style.top = (e.clientY - offsetY) + 'px';
       radioContainer.style.right = 'auto';
       radioContainer.style.bottom = 'auto';
-      radioContainer.style.position = 'fixed';
     });
 
     document.addEventListener('mouseup', () => {
       dragging = false;
-      radioContainer.style.cursor = 'grab';
     });
   </script>
 </body>
