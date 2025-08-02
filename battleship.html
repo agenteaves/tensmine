@@ -6,14 +6,15 @@
   <title>Jungle Adventuraddict | Home</title>
   <meta name="description" content="Shop everyday essentials, personal care, and lifestyle goods at Miriele">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background-color: #121212;
       color: #f1f1f1;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
     }
 
     header {
@@ -25,43 +26,13 @@
       border-bottom: 2px solid #333;
     }
 
-    main.content {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding-top: 2rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    iframe.game-frame {
-      width: 90vw;
-      height: 80vh;
-      max-width: 1024px;
-      max-height: 768px;
-      border: none;
-      border-radius: 10px;
-      background-color: #000;
-      margin-top: 1.5rem;
-    }
-
-    footer {
-      background-color: #1f1f1f;
-      padding: 1rem;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #aaa;
-      border-top: 2px solid #333;
-    }
-
     .radio-buttons {
       position: absolute;
-      top: 5%;
+      top: 1.5rem;
       left: 50%;
       transform: translateX(-50%);
       z-index: 1000;
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.7);
       padding: 0.8rem 1.2rem;
       border-radius: 12px;
       display: flex;
@@ -73,49 +44,82 @@
       cursor: pointer;
     }
 
+    .main-wrapper {
+      display: flex;
+      justify-content: center;
+      padding: 4rem 1rem;
+      position: relative;
+    }
+
+    iframe.game-frame {
+      width: 90vw;
+      height: 80vh;
+      max-width: 1024px;
+      max-height: 768px;
+      border: none;
+      border-radius: 10px;
+      background-color: #000;
+      z-index: 1;
+    }
+
     .left-image-container {
       position: fixed;
       left: 10px;
       top: 50%;
       transform: translateY(-50%);
-      z-index: 10000;
-      max-height: 80vh;
-      width: auto;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      overflow: visible;
+      z-index: 1000;
     }
 
     .left-image-container img {
       max-height: 80vh;
-      width: auto;
       border-radius: 10px;
       display: block;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
     }
 
     .left-image-button {
       position: absolute;
-      bottom: 80px; /* Moved up from bottom */
+      bottom: 80px;
       left: 50%;
       transform: translateX(-50%);
-      padding: 8px 16px;
+      padding: 10px 20px;
       background-color: #007BFF;
       color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 1rem;
       user-select: none;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
       transition: background-color 0.3s ease;
     }
 
     .left-image-button:hover {
       background-color: #0056b3;
     }
+
+    footer {
+      background-color: #1f1f1f;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #aaa;
+      border-top: 2px solid #333;
+    }
+
+    @media screen and (max-width: 768px) {
+      .left-image-container {
+        display: none;
+      }
+
+      iframe.game-frame {
+        height: 60vh;
+      }
+    }
   </style>
 </head>
 <body>
+
   <div class="left-image-container" aria-label="Indoor Hydroponic Garden System">
     <img src="https://i.imgur.com/xasewYq.png" alt="Indoor Hydroponic Garden System" loading="lazy" />
     <button class="left-image-button" onclick="window.open('https://miriele.com/indoor-hydroponic-garden-system/', '_blank')">
@@ -127,13 +131,14 @@
     Jungle Adventuraddict
   </header>
 
-  <main class="content">
-    <div class="radio-buttons">
-      <label><input type="radio" name="radio" onclick="playStream('https://streaming.live365.com/a86253')">Classic Hits 109</label>
-      <label><input type="radio" name="radio" onclick="playStream('https://streaming.live365.com/a40193')">The Funk Station</label>
-      <label><input type="radio" name="radio" onclick="playStream('https://streaming.live365.com/a81688')">Wiggle Radio</label>
-      <label><input type="radio" name="radio" onclick="stopStream()">Stop</label>
-    </div>
+  <div class="radio-buttons">
+    <label><input type="radio" name="radio" onclick="playStream('https://streaming.live365.com/a86253')">Classic Hits 109</label>
+    <label><input type="radio" name="radio" onclick="playStream('https://streaming.live365.com/a40193')">The Funk Station</label>
+    <label><input type="radio" name="radio" onclick="playStream('https://streaming.live365.com/a81688')">Wiggle Radio</label>
+    <label><input type="radio" name="radio" onclick="stopStream()">Stop</label>
+  </div>
+
+  <main class="main-wrapper">
     <iframe class="game-frame" src="https://html-classic.itch.zone/html/9505093/index.html?v=1713549271" allowfullscreen></iframe>
   </main>
 
