@@ -15,12 +15,12 @@
       background: url('https://www.wallpapergap.com/cdn/24/77/dark-green-jungle-wallpaper-3840x2160.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
+      overflow-x: hidden;
     }
     body {
       display: flex;
       flex-direction: column;
       position: relative;
-      overflow-x: hidden;
     }
     header, footer {
       background-color: rgba(0, 0, 0, 0.7);
@@ -64,13 +64,13 @@
     .shop-btn { right: 1rem; }
     .back-btn:hover, .shop-btn:hover { background-color: #0056b3; }
 
-    /* Movable iHeart Radio container */
+    /* Movable radio container */
     #radio-container {
       position: fixed;
       top: 150px;
       right: 20px;
       width: 320px;
-      height: 230px; /* iframe 200 + header ~30 */
+      height: 230px;
       background: #000;
       border-radius: 14px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.7);
@@ -81,6 +81,8 @@
       display: flex;
       flex-direction: column;
       padding: 10px;
+      transition: height 0.3s ease;
+      /* Initially expanded; will override in JS */
     }
     #radio-header {
       color: white;
@@ -91,11 +93,44 @@
       user-select: text;
       text-align: center;
       cursor: move;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8px;
+    }
+    #radio-toggle-btn {
+      color: white;
+      font-weight: 900;
+      font-size: 1.3rem;
+      cursor: pointer;
+      user-select: none;
+      padding-left: 10px;
     }
     #radio-iframe {
       flex-grow: 1;
       border: none;
       border-radius: 10px;
+    }
+
+    /* Minimized style */
+    #radio-container.minimized {
+      width: 160px;
+      height: 40px;
+      padding: 5px 10px;
+      cursor: move;
+    }
+    #radio-container.minimized #radio-header {
+      margin-bottom: 0;
+      font-size: 1rem;
+      justify-content: center;
+      cursor: pointer; /* whole header toggles */
+    }
+    #radio-container.minimized #radio-toggle-btn {
+      padding-left: 0;
+      font-size: 1.1rem;
+    }
+    #radio-container.minimized #radio-iframe {
+      display: none;
     }
   </style>
 </head>
@@ -121,8 +156,11 @@
   </footer>
 
   <!-- Movable iHeart Radio iframe -->
-  <div id="radio-container" title="Drag to move 104.5 KISS FM Player" tabindex="0" aria-label="Movable radio player 104.5 KISS FM">
-    <div id="radio-header">104.5 KISS FM</div>
+  <div id="radio-container" title="Drag to move 104.5 KISS FM Player" tabindex="0" aria-label="Movable radio player 104.5 KISS FM" class="minimized">
+    <div id="radio-header" >
+      <span>104.5 KISS FM</span>
+      <span id="radio-toggle-btn" aria-label="Toggle radio player">▶</span>
+    </div>
     <iframe
       id="radio-iframe"
       src="https://www.iheart.com/live/1045-kiss-fm-2201/?embed=true"
@@ -138,14 +176,41 @@
 
   <script>
     const radioContainer = document.getElementById('radio-container');
+    const radioHeader = document.getElementById('radio-header');
+    const radioToggleBtn = document.getElementById('radio-toggle-btn');
 
+    // Start minimized
+    let minimized = true;
+
+    // Toggle expand/minimize on clicking toggle button or header when minimized
+    function toggleRadio() {
+      minimized = !minimized;
+      if(minimized) {
+        radioContainer.classList.add('minimized');
+        radioToggleBtn.textContent = '▶';
+      } else {
+        radioContainer.classList.remove('minimized');
+        radioToggleBtn.textContent = '▼';
+      }
+    }
+
+    radioToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleRadio();
+    });
+    // Also toggle if user clicks the header text when minimized
+    radioHeader.addEventListener('click', () => {
+      if(minimized) toggleRadio();
+    });
+
+    // Drag logic
     let isDragging = false;
     let dragOffsetX = 0;
     let dragOffsetY = 0;
 
+    // Drag only if mousedown on container or header, but not iframe
     radioContainer.addEventListener('mousedown', (e) => {
-      // Drag only if click on container or header (not iframe)
-      if(e.target === radioContainer || e.target === document.getElementById('radio-header')) {
+      if(e.target === radioContainer || e.target === radioHeader || e.target === radioToggleBtn) {
         isDragging = true;
         const rect = radioContainer.getBoundingClientRect();
         dragOffsetX = e.clientX - rect.left;
