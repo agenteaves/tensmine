@@ -3,119 +3,103 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chatbox</title>
+  <title>Chatbox Page</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: url('https://cdn.wallpapersafari.com/84/2/JmLbyh.jpg') no-repeat center center fixed;
+      background-image: url('https://i.imgur.com/MgvBfCG.jpg'); /* Jungle background */
       background-size: cover;
+      background-position: center;
       font-family: Arial, sans-serif;
     }
 
     header {
       background-color: rgba(0, 0, 0, 0.7);
-      color: #fff;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
+      color: white;
+      padding: 10px;
+      text-align: center;
     }
 
-    header a.btn {
-      background-color: #e91e63;
+    .btn {
       color: white;
-      padding: 10px 15px;
-      margin-right: 10px;
       text-decoration: none;
+      margin: 0 10px;
+      padding: 8px 16px;
+      background-color: #4CAF50;
       border-radius: 5px;
     }
 
-    .chat-container {
+    .container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 40px;
-      margin-right: 360px; /* Prevent overlap with radio widgets */
-    }
-
-    .bikini-ad {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-    }
-
-    .bikini-ad img {
-      width: 728px;
-      height: 90px;
+      justify-content: space-between;
+      padding: 20px;
+      position: relative;
     }
 
     .left-ad {
-      position: absolute;
-      top: 150px;
-      left: 10px;
+      width: 160px;
+      margin-right: 10px;
     }
 
-    .left-ad img {
-      max-width: 200px;
-      height: auto;
-      border: 2px solid #fff;
-      border-radius: 10px;
+    .chatbox {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .radio-widget {
-      position: fixed;
-      top: 150px;
-      right: 10px;
-      width: 340px;
+    .bikini-ad {
+      margin-top: 15px;
     }
 
-    @media (max-width: 768px) {
-      .chat-container {
-        margin-right: 0;
-      }
-      .radio-widget {
-        width: 100%;
-        position: static;
-      }
+    .radio-widgets {
+      width: 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-left: 10px;
+    }
+
+    .radio-widgets iframe {
+      width: 200px;
+      height: 90px;
+      border: none;
     }
   </style>
 </head>
 <body>
-
   <header>
     <a class="btn" href="index.html">Home</a>
     <a class="btn" href="https://miriele.com" target="_blank">Shop</a>
   </header>
 
-  <!-- Chatbox -->
-  <div class="chat-container">
-    <script id="cid0020000415180210466" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js"
-      style="width: 750px;height: 450px;">
-    {"handle":"mirieleshop","arch":"js","styles":{"a":"e91e63","b":100,"c":"FFFFFF","d":"FFFFFF","k":"e91e63","l":"e91e63","m":"e91e63","p":"10","q":"e91e63","r":100,"usricon":0,"surl":0,"allowpm":0}}
-    </script>
-  </div>
+  <div class="container">
+    <!-- Left Ad -->
+    <div class="left-ad">
+      <a href="https://miriele.com/self-emptying-robot-vacuum-cleaner-with-3000pa-suction-and-app-control/" target="_blank">
+        <img src="https://i.imgur.com/Rxr0bW8.png" alt="Vacuum Ad" style="width:100%;">
+      </a>
+    </div>
 
-  <!-- Bikini Ad Under Chatbox -->
-  <div class="bikini-ad">
-    <a href="https://miriele.com/sexy-pink-high-waist-push-up-bikini-set/" target="_blank">
-      <img src="https://i.imgur.com/4Rahi4z.png" alt="Bikini Ad">
-    </a>
-  </div>
+    <!-- Chatbox and Bikini Ad -->
+    <div class="chatbox">
+      <script id="cid0020000415180210466" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js"
+        style="width: 750px; height: 500px;">
+      </script>
 
-  <!-- Left Ad Image -->
-  <div class="left-ad">
-    <a href="https://miriele.com/summer-2025-fashion-collection/" target="_blank">
-      <img src="https://i.imgur.com/IrzhbV1.png" alt="Left Ad">
-    </a>
-  </div>
+      <div class="bikini-ad">
+        <a href="https://miriele.com/sexy-pink-high-waist-push-up-bikini-set/" target="_blank">
+          <img src="https://i.imgur.com/4Rahi4z.png" alt="Bikini Ad" width="728" height="90" />
+        </a>
+      </div>
+    </div>
 
-  <!-- Radio Widget -->
-  <div class="radio-widget">
-    <iframe width="100%" height="150" src="https://zeno.fm/player/miriele-radio-1" frameborder="0" allow="autoplay"></iframe>
-    <br><br>
-    <iframe width="100%" height="150" src="https://zeno.fm/player/miriele-radio-2" frameborder="0" allow="autoplay"></iframe>
+    <!-- Radio Widgets -->
+    <div class="radio-widgets">
+      <iframe src="https://zeno.fm/player/miriele1" allow="autoplay"></iframe>
+      <iframe src="https://zeno.fm/player/miriele2" allow="autoplay"></iframe>
+    </div>
   </div>
-
 </body>
 </html>
