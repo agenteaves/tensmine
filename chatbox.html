@@ -3,239 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chatbox - Miriele</title>
+  <title>Chatbox</title>
   <style>
     body {
+      background-image: url('https://i.imgur.com/JQzXH2Q.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      background-image: url('https://www.wallpapergap.com/cdn/24/77/dark-green-jungle-wallpaper-3840x2160.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     header {
+      width: 100%;
       background-color: rgba(0, 0, 0, 0.7);
-      padding: 1rem;
+      padding: 10px;
       text-align: center;
     }
 
-    .btn {
-      background-color: #28a745;
+    header .btn {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 10px 20px;
       color: white;
-      padding: 8px 16px;
-      margin: 10px;
+      background-color: #4CAF50;
       text-decoration: none;
       border-radius: 5px;
-      display: inline-block;
     }
 
-    .chat-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 40px;
+    #chat-container {
+      margin-top: 20px;
     }
 
-    .left-ad {
-      position: fixed;
-      top: 150px;
-      left: 20px;
-      z-index: 1000;
-    }
-
-    .left-ad img {
-      width: 150px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    }
-
-    /* --- RADIO WIDGET STYLES --- */
-    .radio-widget {
-      position: fixed;
-      z-index: 9999;
-      font-family: Arial, sans-serif;
-    }
-
-    .radio-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(30, 30, 30, 0.75);
-      backdrop-filter: blur(10px);
-      color: white;
-      padding: 10px 16px;
-      border-radius: 14px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
-      cursor: grab;
-      min-width: 200px;
-    }
-
-    .radio-toggle {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 20px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .radio-panel {
-      position: absolute;
-      bottom: 60px;
-      right: 0;
-      width: 320px;
-      height: 0;
-      overflow: hidden;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-      background: rgba(0,0,0,0.85);
-      transition: height 0.3s ease, opacity 0.3s ease;
-      opacity: 0;
-    }
-
-    .radio-panel iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .radio-widget.expanded .radio-panel {
-      height: 240px;
-      opacity: 1;
-    }
-
-    @media (max-width: 400px) {
-      .radio-panel {
-        width: 90vw;
-      }
+    .bikini-ad {
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-
   <header>
     <a class="btn" href="index.html">Home</a>
     <a class="btn" href="https://miriele.com" target="_blank">Shop</a>
   </header>
 
-  <!-- Ad image on the left -->
-  <div class="left-ad">
-    <a href="https://miriele.com/self-emptying-robot-vacuum-cleaner-with-3000pa-suction-and-app-control/" target="_blank">
-      <img src="https://i.imgur.com/Rxr0bW8.png" alt="Robot Vacuum Ad">
-    </a>
-  </div>
-
-  <div class="chat-container">
-    <script 
-      id="cid0020000415180210466"
-      data-cfasync="false"
-      async 
-      src="//st.chatango.com/js/gz/emb.js"
-      style="width: 750px;height: 375px;">
-      {"handle":"laughfactory","arch":"js","styles":{"a":"000066","b":100,"c":"FFFFFF","d":"FFFFFF","k":"000066","l":"000066","m":"000066","n":"FFFFFF","p":"10","q":"000066","r":100,"fwtickm":1}}
+  <div id="chat-container">
+    <script id="cid0020000415180210466" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 750px;height: 600px;">
+      {"handle":"mirielechat","arch":"js","styles":{"a":"000000","b":100,"c":"FFFFFF","d":"FFFFFF","k":"000000","l":"000000","m":"000000","n":"FFFFFF","q":"000000","r":100,"cnrs":"0.35","fwtickm":1}}
     </script>
   </div>
 
-  <!-- Radio Widgets -->
-  <div class="radio-widget" id="radioWidget4" style="bottom: 500px; right: 20px;">
-    <div class="radio-panel">
-      <iframe src="https://beta.iheart.com/live/big-dog-106-2193/?embed=true" allow="autoplay" allowfullscreen title="Big Dog 106"></iframe>
-    </div>
-    <div class="radio-header" id="radioHeader4">
-      Big Dog 106
-      <button class="radio-toggle" id="radioToggle4">+</button>
-    </div>
+  <!-- Bikini Ad Image Below Chatbox -->
+  <div class="bikini-ad">
+    <a href="https://miriele.com/sexy-pink-high-waist-push-up-bikini-set/" target="_blank">
+      <img src="https://i.imgur.com/4Rahi4z.png" alt="Bikini Ad" width="728" height="90" />
+    </a>
   </div>
-
-  <div class="radio-widget" id="radioWidget3" style="bottom: 400px; right: 20px;">
-    <div class="radio-panel">
-      <iframe src="https://beta.iheart.com/live/hit-nation-4422/?embed=true" allow="autoplay" allowfullscreen title="Hit Nation"></iframe>
-    </div>
-    <div class="radio-header" id="radioHeader3">
-      Hit Nation
-      <button class="radio-toggle" id="radioToggle3">+</button>
-    </div>
-  </div>
-
-  <div class="radio-widget" id="radioWidget2" style="bottom: 300px; right: 20px;">
-    <div class="radio-panel">
-      <iframe src="https://beta.iheart.com/live/1045-kiss-fm-2201/?embed=true" allow="autoplay" allowfullscreen title="104.5 KISS FM"></iframe>
-    </div>
-    <div class="radio-header" id="radioHeader2">
-      104.5 KISS FM
-      <button class="radio-toggle" id="radioToggle2">+</button>
-    </div>
-  </div>
-
-  <div class="radio-widget" id="radioWidget1" style="bottom: 200px; right: 20px;">
-    <div class="radio-panel">
-      <iframe src="https://www.iheart.com/live/kicker-951-2205/?embed=true" allow="autoplay" allowfullscreen title="Kicker 95.1"></iframe>
-    </div>
-    <div class="radio-header" id="radioHeader1">
-      Kicker 95.1
-      <button class="radio-toggle" id="radioToggle1">+</button>
-    </div>
-  </div>
-
-  <script>
-    function setupRadioWidget(widgetId, headerId, toggleId) {
-      const widget = document.getElementById(widgetId);
-      const header = document.getElementById(headerId);
-      const toggle = document.getElementById(toggleId);
-
-      let expanded = false;
-
-      toggle.addEventListener('click', () => {
-        expanded = !expanded;
-        widget.classList.toggle('expanded', expanded);
-        toggle.textContent = expanded ? '−' : '+';
-      });
-
-      let isDragging = false, offsetX = 0, offsetY = 0;
-
-      header.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        const rect = widget.getBoundingClientRect();
-        offsetX = e.clientX - rect.left;
-        offsetY = e.clientY - rect.top;
-        header.style.cursor = 'grabbing';
-        document.body.style.userSelect = 'none';
-      });
-
-      document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-
-        let x = e.clientX - offsetX;
-        let y = e.clientY - offsetY;
-
-        const maxX = window.innerWidth - widget.offsetWidth;
-        const maxY = window.innerHeight - 60;
-
-        x = Math.max(0, Math.min(x, maxX));
-        y = Math.max(0, Math.min(y, maxY));
-
-        widget.style.left = `${x}px`;
-        widget.style.top = `${y}px`;
-        widget.style.right = 'auto';
-        widget.style.bottom = 'auto';
-      });
-
-      document.addEventListener('mouseup', () => {
-        isDragging = false;
-        header.style.cursor = 'grab';
-        document.body.style.userSelect = '';
-      });
-    }
-
-    setupRadioWidget('radioWidget1', 'radioHeader1', 'radioToggle1');
-    setupRadioWidget('radioWidget2', 'radioHeader2', 'radioToggle2');
-    setupRadioWidget('radioWidget3', 'radioHeader3', 'radioToggle3');
-    setupRadioWidget('radioWidget4', 'radioHeader4', 'radioToggle4');
-  </script>
-
 </body>
 </html>
