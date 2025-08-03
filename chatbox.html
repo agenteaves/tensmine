@@ -3,37 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chatbox</title>
+  <title>Chatbox - Miriele</title>
   <style>
     body {
-      background-image: url("https://i.imgur.com/dYf3Z9C.jpg");
-      background-size: cover;
       margin: 0;
       padding: 0;
+      background: url("jungle.jpg") no-repeat center center fixed;
+      background-size: cover;
       font-family: Arial, sans-serif;
     }
+
     header {
-      display: flex;
-      justify-content: flex-start;
+      background: rgba(0, 0, 0, 0.6);
       padding: 10px;
-    }
-    .btn {
-      margin-right: 10px;
-      padding: 10px 20px;
-      background-color: #333;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-    }
-    .chat-container {
       text-align: center;
-      padding: 20px;
     }
-    .bikini-ad {
-      display: block;
-      margin: 20px auto 0 auto;
-      width: 728px;
-      height: 90px;
+
+    .btn {
+      color: white;
+      background-color: #e91e63;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+
+    .btn:hover {
+      background-color: #d81b60;
+    }
+
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
     }
   </style>
 </head>
@@ -43,17 +50,18 @@
     <a class="btn" href="https://miriele.com" target="_blank">Shop</a>
   </header>
 
-  <div class="chat-container">
-    <script id="cid0020000415180210466" data-cfasync="false" async 
-      src="//st.chatango.com/js/gz/emb.js" 
-      style="width: 750px;height: 500px;">
-    {"handle":"mirielechat","arch":"js","styles":{"a":"333333","b":100,"c":"FFFFFF","d":"FFFFFF","k":"333333","l":"333333","m":"333333","p":"10","q":"333333","r":100,"pos":"br","cv":1,"cvfnt":"Arial, sans-serif, 14px"}}
+  <main>
+    <!-- Chatango Chatbox -->
+    <script id="cid0020000415180210466" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 750px;height: 410px;">
+      {"handle":"miriele","arch":"js","styles":{"a":"e91e63","b":100,"c":"FFFFFF","d":"FFFFFF","k":"e91e63","l":"e91e63","m":"e91e63","p":"10","q":"e91e63","r":100,"surl":0,"cnrs":"0.35","fwtickm":1}}
     </script>
 
-    <!-- Bikini Ad -->
-    <a href="https://miriele.com/sexy-pink-high-waist-push-up-bikini-set/" target="_blank">
-      <img class="bikini-ad" src="https://i.imgur.com/4Rahi4z.png" alt="Bikini Ad">
-    </a>
-  </div>
+    <!-- Bikini Ad - 728x90 -->
+    <div style="width: 728px; height: 90px; margin: 20px auto;">
+      <a href="https://miriele.com/sexy-pink-high-waist-push-up-bikini-set/" target="_blank">
+        <img src="https://i.imgur.com/4Rahi4z.png" width="728" height="90" style="display: block; border: none;" alt="Bikini Ad">
+      </a>
+    </div>
+  </main>
 </body>
 </html>
