@@ -3,69 +3,123 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chatbox Page</title>
+  <title>Chatbox - Miriele</title>
   <style>
     body {
-      background-image: url('https://i.imgur.com/o5uMfKo.jpg');
-      background-size: cover;
-      background-position: center;
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      overflow-x: hidden;
+      background-image: url('https://www.wallpapergap.com/cdn/24/77/dark-green-jungle-wallpaper-3840x2160.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: white;
     }
 
     header {
       background-color: rgba(0, 0, 0, 0.7);
-      padding: 10px;
+      padding: 1rem;
       text-align: center;
     }
 
     .btn {
+      background-color: #28a745;
       color: white;
-      background-color: #4CAF50;
-      border: none;
-      padding: 10px 20px;
-      margin: 5px;
+      padding: 8px 16px;
+      margin: 10px;
       text-decoration: none;
-      font-size: 16px;
       border-radius: 5px;
+      display: inline-block;
     }
 
-    .container {
+    .chat-container {
       display: flex;
+      flex-direction: column; /* stack vertically */
       justify-content: center;
-      align-items: flex-start;
-      padding: 20px;
-      gap: 20px;
-      position: relative;
+      align-items: center;
+      margin-top: 40px;
     }
 
+    /* Left ad styling */
     .left-ad {
       position: fixed;
-      left: 0;
       top: 150px;
-      z-index: 2;
+      left: 20px;
+      z-index: 1000;
     }
 
-    .chatbox-wrapper {
-      z-index: 1;
+    .left-ad img {
+      width: 150px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      display: block;
     }
 
-    .right-widgets {
+    /* --- RADIO WIDGET STYLES --- */
+    .radio-widget {
       position: fixed;
-      right: 0;
-      top: 150px;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      z-index: 9999;
+      font-family: Arial, sans-serif;
+      right: 20px;
+      width: 320px;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+      background: rgba(30,30,30,0.75);
+      color: white;
+      cursor: grab;
+      user-select: none;
     }
 
-    .bikini-ad {
+    .radio-header {
       display: flex;
-      justify-content: center;
-      margin-top: 20px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      border-radius: 14px 14px 0 0;
+    }
+
+    .radio-toggle {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .radio-panel {
+      height: 0;
+      overflow: hidden;
+      transition: height 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      background: rgba(0,0,0,0.85);
+      border-radius: 0 0 14px 14px;
+    }
+
+    .radio-panel iframe {
+      width: 100%;
+      height: 240px;
+      border: none;
+      border-radius: 0 0 14px 14px;
+    }
+
+    .radio-widget.expanded .radio-panel {
+      height: 240px;
+      opacity: 1;
+    }
+
+    /* Separate widgets vertically */
+    #radioWidget1 { bottom: 200px; }
+    #radioWidget2 { bottom: 300px; }
+    #radioWidget3 { bottom: 400px; }
+    #radioWidget4 { bottom: 500px; }
+
+    @media (max-width: 400px) {
+      .radio-widget {
+        width: 90vw;
+        right: 5vw !important;
+      }
     }
   </style>
 </head>
@@ -76,38 +130,126 @@
     <a class="btn" href="https://miriele.com" target="_blank">Shop</a>
   </header>
 
-  <div class="container">
-
-    <!-- Left Ad -->
-    <div class="left-ad">
-      <a href="https://miriele.com/self-emptying-robot-vacuum-cleaner-with-3000pa-suction-and-app-control/" target="_blank">
-        <img src="https://i.imgur.com/Rxr0bW8.png" alt="Vacuum Ad" width="150">
-      </a>
-    </div>
-
-    <!-- Chatbox -->
-    <div class="chatbox-wrapper">
-      <script id="cid0020000415180210466" data-cfasync="false" async 
-        src="//st.chatango.com/js/gz/emb.js" 
-        style="width: 750px;height: 500px;">
-      </script>
-
-      <!-- Bikini Ad Below Chatbox -->
-      <div class="bikini-ad">
-        <a href="https://miriele.com/sexy-pink-high-waist-push-up-bikini-set/" target="_blank">
-          <img src="https://i.imgur.com/4Rahi4z.png" alt="Bikini Ad" width="728" height="90">
-        </a>
-      </div>
-    </div>
-
-    <!-- Right Radios -->
-    <div class="right-widgets">
-      <iframe allow="autoplay" width="300" height="200" 
-        src="https://radio.garden/api/ara/content/listen/NKwXQOlO?aud=true" frameborder="0"></iframe>
-      <iframe allow="autoplay" width="300" height="200" 
-        src="https://radio.garden/api/ara/content/listen/xWuWH-CE?aud=true" frameborder="0"></iframe>
-    </div>
-
+  <!-- Left side ad -->
+  <div class="left-ad">
+    <a href="https://miriele.com/self-emptying-robot-vacuum-cleaner-with-3000pa-suction-and-app-control/" target="_blank">
+      <img src="https://i.imgur.com/Rxr0bW8.png" alt="Robot Vacuum Ad">
+    </a>
   </div>
+
+  <div class="chat-container">
+    <script 
+      id="cid0020000415180210466"
+      data-cfasync="false"
+      async 
+      src="//st.chatango.com/js/gz/emb.js"
+      style="width: 750px;height: 375px;">
+      {"handle":"laughfactory","arch":"js","styles":{"a":"000066","b":100,"c":"FFFFFF","d":"FFFFFF","k":"000066","l":"000066","m":"000066","n":"FFFFFF","p":"10","q":"000066","r":100,"fwtickm":1}}
+    </script>
+
+    <!-- Bikini ad below chatbox -->
+    <a href="https://miriele.com/sexy-pink-high-waist-push-up-bikini-set/" target="_blank" style="margin-top: 20px;">
+      <img src="https://i.imgur.com/4Rahi4z.png" alt="Bikini Ad" width="728" height="90" style="display: block;">
+    </a>
+  </div>
+
+  <!-- Radio widgets -->
+  <div class="radio-widget" id="radioWidget4" style="right: 20px;">
+    <div class="radio-header" id="radioHeader4">
+      Big Dog 106
+      <button class="radio-toggle" id="radioToggle4">+</button>
+    </div>
+    <div class="radio-panel">
+      <iframe src="https://beta.iheart.com/live/big-dog-106-2193/?embed=true" allow="autoplay" allowfullscreen title="Big Dog 106"></iframe>
+    </div>
+  </div>
+
+  <div class="radio-widget" id="radioWidget3" style="right: 20px;">
+    <div class="radio-header" id="radioHeader3">
+      Hit Nation
+      <button class="radio-toggle" id="radioToggle3">+</button>
+    </div>
+    <div class="radio-panel">
+      <iframe src="https://beta.iheart.com/live/hit-nation-4422/?embed=true" allow="autoplay" allowfullscreen title="Hit Nation"></iframe>
+    </div>
+  </div>
+
+  <div class="radio-widget" id="radioWidget2" style="right: 20px;">
+    <div class="radio-header" id="radioHeader2">
+      104.5 KISS FM
+      <button class="radio-toggle" id="radioToggle2">+</button>
+    </div>
+    <div class="radio-panel">
+      <iframe src="https://beta.iheart.com/live/1045-kiss-fm-2201/?embed=true" allow="autoplay" allowfullscreen title="104.5 KISS FM"></iframe>
+    </div>
+  </div>
+
+  <div class="radio-widget" id="radioWidget1" style="right: 20px;">
+    <div class="radio-header" id="radioHeader1">
+      Kicker 95.1
+      <button class="radio-toggle" id="radioToggle1">+</button>
+    </div>
+    <div class="radio-panel">
+      <iframe src="https://www.iheart.com/live/kicker-951-2205/?embed=true" allow="autoplay" allowfullscreen title="Kicker 95.1"></iframe>
+    </div>
+  </div>
+
+  <script>
+    function setupRadioWidget(widgetId, headerId, toggleId) {
+      const widget = document.getElementById(widgetId);
+      const header = document.getElementById(headerId);
+      const toggle = document.getElementById(toggleId);
+
+      let expanded = false;
+
+      toggle.addEventListener('click', () => {
+        expanded = !expanded;
+        widget.classList.toggle('expanded', expanded);
+        toggle.textContent = expanded ? '−' : '+';
+      });
+
+      let isDragging = false, offsetX = 0, offsetY = 0;
+
+      header.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        const rect = widget.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+        header.style.cursor = 'grabbing';
+        document.body.style.userSelect = 'none'; // Disable text selection while dragging
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+
+        let x = e.clientX - offsetX;
+        let y = e.clientY - offsetY;
+
+        // Boundaries to keep widget in viewport
+        const maxX = window.innerWidth - widget.offsetWidth;
+        const maxY = window.innerHeight - 60;
+
+        x = Math.max(0, Math.min(x, maxX));
+        y = Math.max(0, Math.min(y, maxY));
+
+        widget.style.left = `${x}px`;
+        widget.style.top = `${y}px`;
+        widget.style.right = 'auto';
+        widget.style.bottom = 'auto';
+      });
+
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+        header.style.cursor = 'grab';
+        document.body.style.userSelect = '';
+      });
+    }
+
+    setupRadioWidget('radioWidget1', 'radioHeader1', 'radioToggle1');
+    setupRadioWidget('radioWidget2', 'radioHeader2', 'radioToggle2');
+    setupRadioWidget('radioWidget3', 'radioHeader3', 'radioToggle3');
+    setupRadioWidget('radioWidget4', 'radioHeader4', 'radioToggle4');
+  </script>
 </body>
 </html>
