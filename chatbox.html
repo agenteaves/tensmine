@@ -3,109 +3,111 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chatbox</title>
+  <title>Chatbox Page</title>
   <style>
     body {
-      background-image: url("https://i.imgur.com/hIRa8sG.jpg");
+      background-image: url('https://i.imgur.com/o5uMfKo.jpg');
       background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+      background-position: center;
       margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 10px;
+      text-align: center;
+    }
+
+    .btn {
+      color: white;
+      background-color: #4CAF50;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      text-decoration: none;
+      font-size: 16px;
+      border-radius: 5px;
     }
 
     .container {
       display: flex;
-      flex-direction: row;
-      margin-top: 20px;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 20px;
+      gap: 20px;
+      position: relative;
     }
 
     .left-ad {
-      margin-right: 20px;
+      position: fixed;
+      left: 0;
+      top: 150px;
+      z-index: 2;
     }
 
-    .chatbox-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .bottom-ad {
-      margin-top: 10px;
+    .chatbox-wrapper {
+      z-index: 1;
     }
 
     .right-widgets {
-      margin-left: 20px;
+      position: fixed;
+      right: 0;
+      top: 150px;
+      z-index: 2;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 20px;
     }
 
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background-color: #222;
-      padding: 10px;
-      text-align: center;
-      z-index: 10;
-    }
-
-    header .btn {
-      text-decoration: none;
-      color: white;
-      background-color: #555;
-      padding: 8px 16px;
-      margin: 0 10px;
-      border-radius: 4px;
-    }
-
-    header .btn:hover {
-      background-color: #777;
-    }
-
-    .spacer {
-      height: 60px;
+    .bikini-ad {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
+
   <header>
     <a class="btn" href="index.html">Home</a>
     <a class="btn" href="https://miriele.com" target="_blank">Shop</a>
   </header>
 
-  <div class="spacer"></div>
-
   <div class="container">
-    <!-- Left ad -->
+
+    <!-- Left Ad -->
     <div class="left-ad">
       <a href="https://miriele.com/self-emptying-robot-vacuum-cleaner-with-3000pa-suction-and-app-control/" target="_blank">
-        <img src="https://i.imgur.com/Rxr0bW8.png" alt="Vacuum Ad" style="width:160px;" />
+        <img src="https://i.imgur.com/Rxr0bW8.png" alt="Vacuum Ad" width="150">
       </a>
     </div>
 
-    <!-- Chatbox + bottom ad -->
-    <div class="chatbox-section">
-      <script id="cid0020000415180210466" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 750px; height: 400px;">
-        {"handle":"mirielechat","arch":"js","styles":{"a":"000000","b":100,"c":"FFFFFF","d":"FFFFFF","k":"000000","l":"000000","m":"000000","n":"FFFFFF","q":"000000","r":100,"cnrs":"0.35","fwtickm":1}}
+    <!-- Chatbox -->
+    <div class="chatbox-wrapper">
+      <script id="cid0020000415180210466" data-cfasync="false" async 
+        src="//st.chatango.com/js/gz/emb.js" 
+        style="width: 750px;height: 500px;">
       </script>
-      <div class="bottom-ad">
+
+      <!-- Bikini Ad Below Chatbox -->
+      <div class="bikini-ad">
         <a href="https://miriele.com/sexy-pink-high-waist-push-up-bikini-set/" target="_blank">
-          <img src="https://i.imgur.com/4Rahi4z.png" alt="Bikini Ad" style="width: 728px; height: 90px;" />
+          <img src="https://i.imgur.com/4Rahi4z.png" alt="Bikini Ad" width="728" height="90">
         </a>
       </div>
     </div>
 
-    <!-- Right widgets -->
+    <!-- Right Radios -->
     <div class="right-widgets">
-      <iframe src="https://zeno.fm/player/miriele-radio" width="300" height="150" frameborder="0" scrolling="no"></iframe>
-      <iframe src="https://zeno.fm/player/miriele-hits" width="300" height="150" frameborder="0" scrolling="no"></iframe>
+      <iframe allow="autoplay" width="300" height="200" 
+        src="https://radio.garden/api/ara/content/listen/NKwXQOlO?aud=true" frameborder="0"></iframe>
+      <iframe allow="autoplay" width="300" height="200" 
+        src="https://radio.garden/api/ara/content/listen/xWuWH-CE?aud=true" frameborder="0"></iframe>
     </div>
+
   </div>
 </body>
 </html>
