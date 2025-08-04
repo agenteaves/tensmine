@@ -1,124 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>5 Stunning Home & Garden Finds Inspired by the Deep Jungle</title>
-  <meta name="description" content="Explore Miriele’s most elegant Home & Garden picks inspired by the lush depths of a jungle." />
-  <meta name="keywords" content="home garden picks, jungle aesthetic, outdoor decor, Miriele home essentials" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Embedded Blog</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-      background-size: cover;
-      background-attachment: fixed;
-      background-position: center;
-      color: #f1f1f1;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 40px;
     }
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.65);
-      z-index: -1;
-    }
-    .container {
+
+    .blog-box {
       max-width: 800px;
       margin: auto;
-      padding: 40px 20px;
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 12px;
-    }
-    h1, h2 {
-      color: #e3c15a;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
-    }
-    h1 { font-size: 2.8rem; margin-bottom: 1rem; }
-    h2 { margin-top: 2rem; font-size: 1.8rem; }
-    p { line-height: 1.6; }
-    .product {
-      margin-top: 1.5rem;
-      padding: 15px;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 8px;
-      background: rgba(255,255,255,0.05);
-    }
-    .product img {
-      max-width: 100%;
-      border-radius: 6px;
-      display: block;
-      margin: 10px 0;
-    }
-    .shop-btn {
-      display: inline-block;
-      margin-top: 10px;
-      background: #e3c15a;
-      color: #111;
-      padding: 10px 18px;
+      border: 2px solid #ccc;
       border-radius: 20px;
-      text-decoration: none;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .blog-box:hover {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .blog-header {
+      background: #f9f9f9;
+      padding: 16px 24px;
+      font-size: 22px;
       font-weight: bold;
-      box-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+      border-bottom: 1px solid #ddd;
     }
-    .shop-btn:hover {
-      background: #f4d77a;
-    }
-    footer {
-      margin-top: 50px;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #ccc;
-    }
-    @media (max-width: 600px) {
-      .container { padding: 20px 10px; }
-      h1 { font-size: 2rem; }
-      h2 { font-size: 1.4rem; }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      display: block;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>5 Stunning Home & Garden Finds Inspired by the Deep Jungle</h1>
-    <p>Deep jungle vibes meet elegant home décor. Here’s our handpicked selection of beautiful, functional products from <strong>Miriele.com</strong> that bring serenity and style to any space.</p>
 
-    <div class="product">
-      <h2>1. Solar Fairy Lanterns – Enchant Your Nights</h2>
-      <img src="https://cdn.pixabay.com/photo/2017/08/01/08/29/fairy-lights-2567952_1280.jpg" alt="Garden solar fairy lights" />
-      <p>Soft, magical LED glow powered by the sun. Illuminate your garden pathways with eco‑friendly charm.</p>
-      <a href="https://miriele.com/products/fairy-lanterns" class="shop-btn">Shop Now</a>
-    </div>
-
-    <div class="product">
-      <h2>2. Bamboo Wind Chimes – Echoes of the Forest</h2>
-      <img src="https://cdn.pixabay.com/photo/2015/09/17/17/15/wind-chime-942479_1280.jpg" alt="Bamboo wind chimes" />
-      <p>Let nature whisper through handcrafted bamboo chimes hanging gracefully in your garden.</p>
-      <a href="https://miriele.com/products/bamboo-chimes" class="shop-btn">Shop Now</a>
-    </div>
-
-    <div class="product">
-      <h2>3. Leaf-Pattern Cushions – Lush & Durable</h2>
-      <img src="https://cdn.pixabay.com/photo/2022/01/17/13/13/cushions-6944515_1280.jpg" alt="Jungle leaf cushions" />
-      <p>UV-resistant and bold—perfect accents for your outdoor lounge that feel like a real forest retreat.</p>
-      <a href="https://miriele.com/products/leaf-cushions" class="shop-btn">Shop Now</a>
-    </div>
-
-    <div class="product">
-      <h2>4. Rattan Swing Chair – Swing into Your Sanctuary</h2>
-      <img src="https://cdn.pixabay.com/photo/2020/03/10/16/32/chair-4919455_1280.jpg" alt="Hanging rattan chair" />
-      <p>Strong, stylish, and cozy. This rattan chair creates a personal retreat for afternoon lounging.</p>
-      <a href="https://miriele.com/products/rattan-chair" class="shop-btn">Shop Now</a>
-    </div>
-
-    <div class="product">
-      <h2>5. Concrete Planters – Minimal Meets Wild</h2>
-      <img src="https://cdn.pixabay.com/photo/2024/02/24/plant-7803889_1280.jpg" alt="Concrete planters" />
-      <p>Clean lines, bold greenery—modern planters that give your plants room to grow, even in small spaces.</p>
-      <a href="https://miriele.com/products/concrete-planters" class="shop-btn">Shop Now</a>
-    </div>
-
-    <footer>&copy; 2025 Miriele.com – Home & Garden Blog</footer>
+  <div class="blog-box">
+    <div class="blog-header">📝 Blog Post</div>
+    <iframe src="https://telegra.ph/3-in-1-Avocado-Slicer-Corer-and-Fruit-Peeler-08-04-2"></iframe>
   </div>
+
 </body>
 </html>
