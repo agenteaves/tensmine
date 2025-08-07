@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>How Are You Feeling Today?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 1.5em;
+      margin-top: 20px;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #log {
+      margin-top: 30px;
+      background: #f8f8f8;
+      padding: 15px;
+    }
+
+    .entry {
+      margin-bottom: 10px;
+    }
+
+    .top-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .top-buttons a {
+      text-decoration: none;
+    }
+
+    .nav-btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 16px;
+      font-size: 14px;
+    }
+
+    .nav-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-buttons">
+    <a href="index.html"><button class="nav-btn">🏠 Home</button></a>
+    <a href="https://miriele.com" target="_blank"><button class="nav-btn">🛍️ Shop</button></a>
+  </div>
+
+  <h1>🧠 How Are You Feeling Today?</h1>
+  <p>Select the emoji that matches your mood:</p>
+
+  <div>
+    <button onclick="logMood('😊 Happy')">😊</button>
+    <button onclick="logMood('😐 Okay')">😐</button>
+    <button onclick="logMood('😞 Sad')">😞</button>
+    <button onclick="logMood('😡 Angry')">😡</button>
+    <button onclick="logMood('😰 Anxious')">😰</button>
+    <button onclick="logMood('😴 Tired')">😴</button>
+  </div>
+
+  <div id="response" style="margin-top:20px;"></div>
+
+  <h2>Your Mood Log This Week</h2>
+  <div id="log"></div>
+
+  <script>
+    function logMood(mood) {
+      const today = new Date().toLocaleDateString();
+      const entry = `${today}: ${mood}`;
+      let log = JSON.parse(localStorage.getItem("moodLog") || "[]");
+      log.push(entry);
+      localStorage.setItem("moodLog", JSON.stringify(log));
+      document.getElementById("response").innerHTML = getResponse(mood);
+      showLog();
+    }
+
+    function showLog() {
+      let log = JSON.parse(localStorage.getItem("moodLog") || "[]");
+      let html = log.slice(-7).map(e => `<div class="entry">🗓️ ${e}</div>`).join('');
+      document.getElementById("log").innerHTML = html || "<i>No entries yet.</i>";
+    }
+
+    function getResponse(mood) {
+      const tips = {
+        "😊 Happy": "Keep smiling! Share that good vibe.",
+        "😐 Okay": "A calm day is still progress. Stay grounded.",
+        "😞 Sad": "It's okay to feel down. Try a walk or talk to someone.",
+        "😡 Angry": "Breathe deep. Let it pass without reacting.",
+        "😰 Anxious": "Try a 4-7-8 breathing cycle. You've got this.",
+        "😴 Tired": "Rest matters. Don’t forget to take a break."
+      };
+      return `<p><strong>${tips[mood]}</strong></p>`;
+    }
+
+    showLog();
+  </script>
+</body>
+</html>
