@@ -7,174 +7,109 @@
   <style>
     body {
       margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background: linear-gradient(to bottom right, #dfefff, #ffffff);
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #fdfbfb, #ebedee);
       color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
       overflow-x: hidden;
     }
 
     header {
-      width: 100%;
-      background: #005f73;
-      color: white;
+      background-color: #ffffffcc;
       padding: 1rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
     header h1 {
+      margin: 0 auto;
       font-size: 1.5rem;
-      margin: 0;
     }
 
     .nav-buttons {
-      display: flex;
-      gap: 1rem;
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
     }
 
     .nav-buttons a {
-      color: white;
+      margin-right: 10px;
       text-decoration: none;
-      background: #0a9396;
-      padding: 0.5rem 1rem;
+      background: #007bff;
+      color: white;
+      padding: 0.4rem 0.8rem;
       border-radius: 5px;
+      font-size: 0.9rem;
     }
 
-    main {
-      width: 100%;
-      max-width: 600px;
-      padding: 1rem;
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem;
       text-align: center;
     }
 
     select, button {
-      font-size: 1rem;
       padding: 0.5rem;
-      margin: 1rem 0;
-    }
-
-    #emoji {
-      font-size: 3rem;
       margin-top: 1rem;
+      font-size: 1rem;
     }
 
-    .quote {
+    .emoji {
+      font-size: 2.5rem;
+    }
+
+    #mood-bot {
+      margin-top: 1rem;
       font-style: italic;
-      margin-top: 0.5rem;
+      color: #555;
     }
 
-    #chart {
+    #mood-streak, #mood-history, #mood-board {
       margin-top: 2rem;
-      border-top: 1px solid #ccc;
-      padding-top: 1rem;
-      font-size: 0.9rem;
+      padding: 1rem;
+      background: #f0f0f0cc;
+      border-radius: 10px;
     }
 
-    .social-bar {
+    #mood-board {
+      max-height: 150px;
+      overflow-y: auto;
+      font-size: 0.95rem;
+    }
+
+    .share-bar {
       position: fixed;
       top: 50%;
       left: 0;
       transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+      background: #ffffffcc;
+      border-right: 1px solid #ddd;
       padding: 0.5rem;
+      z-index: 999;
+      border-radius: 0 8px 8px 0;
     }
 
-    .social-bar a {
-      background: #e9d8a6;
-      padding: 0.5rem;
-      border-radius: 0 5px 5px 0;
+    .share-bar a {
+      display: block;
+      margin: 0.3rem 0;
       text-decoration: none;
       color: #333;
-      font-size: 0.9rem;
+      font-size: 1.2rem;
     }
 
-    @media (max-width: 600px) {
-      .social-bar {
-        top: auto;
-        bottom: 0;
-        flex-direction: row;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(255,255,255,0.8);
-        border-radius: 10px 10px 0 0;
+    @media screen and (max-width: 600px) {
+      header h1 {
+        font-size: 1.2rem;
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Mood Quest</h1>
     <div class="nav-buttons">
       <a href="index.html">🏠 Home</a>
-      <a href="https://miriele.com" target="_blank">🛍️ Shop</a>
-    </div>
-  </header>
-
-  <main>
-    <h2>How are you feeling today?</h2>
-    <select id="moodSelect">
-      <option value="happy">😄 Happy</option>
-      <option value="sad">😢 Sad</option>
-      <option value="angry">😡 Angry</option>
-      <option value="tired">😴 Tired</option>
-      <option value="excited">🤩 Excited</option>
-    </select>
-    <br />
-    <button onclick="trackMood()">Track Mood</button>
-
-    <div id="emoji"></div>
-    <div class="quote" id="quote"></div>
-
-    <div id="chart">
-      <h3>Your Mood History</h3>
-      <ul id="moodList"></ul>
-    </div>
-  </main>
-
-  <div class="social-bar">
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https://miriele.com" target="_blank">Share on FB</a>
-    <a href="https://twitter.com/intent/tweet?url=https://miriele.com&text=Check%20this%20Mood%20Tracker!" target="_blank">Share on X</a>
-    <a href="https://www.reddit.com/submit?url=https://miriele.com&title=Awesome%20Mood%20Tracker!" target="_blank">Share on Reddit</a>
-  </div>
-
-  <script>
-    const moodData = {
-      happy: { emoji: "😄", quote: "Happiness is contagious. Spread it!" },
-      sad: { emoji: "😢", quote: "It’s okay to feel sad. Take care of yourself." },
-      angry: { emoji: "😡", quote: "Breathe. You’ve got this under control." },
-      tired: { emoji: "😴", quote: "Rest is productive too." },
-      excited: { emoji: "🤩", quote: "Chase that energy and do great things!" }
-    };
-
-    let streak = 0;
-
-    function trackMood() {
-      const mood = document.getElementById("moodSelect").value;
-      const display = document.getElementById("emoji");
-      const quote = document.getElementById("quote");
-      const moodList = document.getElementById("moodList");
-
-      display.textContent = moodData[mood].emoji;
-      quote.textContent = moodData[mood].quote;
-
-      const date = new Date().toLocaleDateString();
-      const entry = document.createElement("li");
-      entry.textContent = `${date}: ${moodData[mood].emoji} ${mood.charAt(0).toUpperCase() + mood.slice(1)}`;
-      moodList.prepend(entry);
-
-      // Keep only latest 7 entries
-      while (moodList.childNodes.length > 7) {
-        moodList.removeChild(moodList.lastChild);
-      }
-    }
-  </script>
-</body>
-</html>
