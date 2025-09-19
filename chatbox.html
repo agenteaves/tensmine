@@ -41,13 +41,28 @@
       margin-top: 40px;
     }
 
+    /* Left ad styling */
+    .left-ad {
+      position: fixed;
+      top: 150px;
+      left: 20px;
+      z-index: 1000;
+    }
+
+    .left-ad img {
+      width: 150px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      display: block;
+    }
+
     /* --- RADIO WIDGET STYLES --- */
     .radio-widget {
       position: fixed;
       z-index: 9999;
       font-family: Arial, sans-serif;
       right: 20px;
-      width: 200px;
+      width: 320px;
       border-radius: 14px;
       box-shadow: 0 6px 18px rgba(0,0,0,0.5);
       background: rgba(30,30,30,0.75);
@@ -60,7 +75,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 10px;
+      padding: 10px 16px;
       border-radius: 14px 14px 0 0;
     }
 
@@ -102,7 +117,7 @@
 
     @media (max-width: 400px) {
       .radio-widget {
-        width: 50vw;
+        width: 90vw;
         right: 5vw !important;
       }
     }
@@ -124,10 +139,9 @@
       style="width: 750px;height: 375px;">
       {"handle":"laughfactory","arch":"js","styles":{"a":"000066","b":100,"c":"FFFFFF","d":"FFFFFF","k":"000066","l":"000066","m":"000066","n":"FFFFFF","p":"10","q":"000066","r":100,"fwtickm":1}}
     </script>
-  </div>
 
-  <!-- Radio widgets -->
-  <div class="radio-widget" id="radioWidget4" style="right: 2px;">
+   <!-- Radio widgets -->
+  <div class="radio-widget" id="radioWidget4" style="right: 20px;">
     <div class="radio-header" id="radioHeader4">
       Big Dog 106
       <button class="radio-toggle" id="radioToggle4">+</button>
@@ -137,7 +151,7 @@
     </div>
   </div>
 
-  <div class="radio-widget" id="radioWidget3" style="right: 4px;">
+  <div class="radio-widget" id="radioWidget3" style="right: 20px;">
     <div class="radio-header" id="radioHeader3">
       Hit Nation
       <button class="radio-toggle" id="radioToggle3">+</button>
@@ -147,7 +161,7 @@
     </div>
   </div>
 
-  <div class="radio-widget" id="radioWidget2" style="right: 4px;">
+  <div class="radio-widget" id="radioWidget2" style="right: 20px;">
     <div class="radio-header" id="radioHeader2">
       104.5 KISS FM
       <button class="radio-toggle" id="radioToggle2">+</button>
@@ -157,7 +171,7 @@
     </div>
   </div>
 
-  <div class="radio-widget" id="radioWidget1" style="right: 4px;">
+  <div class="radio-widget" id="radioWidget1" style="right: 20px;">
     <div class="radio-header" id="radioHeader1">
       Kicker 95.1
       <button class="radio-toggle" id="radioToggle1">+</button>
